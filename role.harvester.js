@@ -2,8 +2,7 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep,list) {
-        var sources = creep.room.find(FIND_SOURCES);
-        var targetPos = creep.pos.findClosestByPath(sources);
+        var targetPos = creep.memory.assingedSource; 
         creep.moveTo(targetPos);
         if(creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);

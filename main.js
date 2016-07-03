@@ -1,7 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleHauler = require('role.hauler');
 var roleUpgrader = require('role.upgrader');
-var roleArchitect = require('role.architect');
+var roleOrganizer = require('role.organizer');
 var roleBuilder = require('role.builder');
 var utils = require('utils');
 
@@ -12,7 +12,7 @@ var utils = require('utils');
  * Hauler: Recoje recursos del suelo y los entrega
  * Upgrader: Mejora edificios
  * Builder: Construye los edificios designados
- * Architect: Log buildings and designates construction spots
+ * Organizer: Log buildings and designates construction spots
  * 
  * FUNCIONES
  * 
@@ -31,8 +31,8 @@ module.exports.loop = function () {
     }
 
     /*Populate lists and spawn*/
-    var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
-    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'architect'});
+    var organizers = _.filter(Game.creeps, (creep) => creep.memory.role == 'organizer');
+    if(organizers.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'});
 
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     if(builders.length < 2) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
@@ -63,8 +63,8 @@ module.exports.loop = function () {
         if (creep.memory.role == 'builder' && !(creep.spawning)){
             roleBuilder.run(creep);
         }
-        if(creep.memory.role == 'architect' && !(creep.spawning)){
-            roleArchitect.run(creep);
+        if(creep.memory.role == 'organizer' && !(creep.spawning)){
+            roleOrganizer.run(creep);
         }
 
     }
