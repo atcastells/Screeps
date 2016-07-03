@@ -10,12 +10,12 @@ var roleHauler = {
             if(sources){
                 var nearestSource = creep.pos.findClosestByPath(sources);
                 if(creep.pickup(nearestSource) == ERR_NOT_IN_RANGE){
-                    creep.say('Going to ' + nearestSource);
                     creep.moveTo(nearestSource)
                 }
                 var nearestHauler = creep.pos.findInRange(FIND_MY_CREEPS,4);
                 for (var i in nearestHauler){
                     if (nearestHauler[i].memory == 'hauler' && creep.carry.energy < (nearestHauler[i].carry.energy)){
+                            console.log(creep.name+' transfer'+ creep.carry.energy);
                             creep.transfer(nearestHauler[i],RESOURCE_ENERGY);
                     }
                 }
