@@ -26,7 +26,16 @@ var roleArchitect = {
                 for (var ids in buildings){
                     var structureType = buildings[ids].structureType;
                     var id = buildings[ids].id;
-                    Memory.rooms[room.name].architectLog.push({id: id,structureType: structureType});
+                    if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'controller' )){
+                        Memory.rooms[room.name].architectLog.push({id: id,structureType: structureType});
+                    }
+                    else {
+                        if (buildings[ids].structureType == 'spawn'){
+                            var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                            Memory.rooms[room.name].architectLog.push({id: id,structureType: structureType,controllers: controllers});
+                        }
+                    }
+
                 }
                 Memory.rooms[room.name].sources=[];
                 for(var ids in sources){

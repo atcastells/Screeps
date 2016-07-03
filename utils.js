@@ -13,8 +13,9 @@ var utils = {
         targetStructure.transferEnergy(creep);
     },
     buildInRange: function (pos, int) { //pos: building position, int: radius
-
-
+        
+        
+        
     },
     GetCreepsByRole: function (role){
     var CreepList = [];
