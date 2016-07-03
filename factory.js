@@ -6,11 +6,10 @@ var factory = {
     normalSpawn: function (maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters) {
         var organizers = _.filter(Game.creeps, (creep) => creep.memory.role == 'organizer');
         if(organizers.length < maxOrganizers){
-            var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'});
-            console.log('organizer Spawned');
+            if (!(Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'}) == ERR_NOT_ENOUGH_ENERGY)){
+                console.log('organizer Spawned');
+            }
         }
-
-
         var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if(builders.length < maxBuilders){
             var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
