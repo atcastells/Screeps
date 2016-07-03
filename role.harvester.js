@@ -24,9 +24,9 @@ var roleHarvester = {
                         structure.structureType == STRUCTURE_CONTAINER);
                     }
                 });
-                var nearestStorage = creep.pos.findClosestByPath(storage);
-             if(creep.transfer(nearestStorage) == ERR_NOT_IN_RANGE){
-                 creep.moveTo(nearestStorage);
+                var targetStorage = creep.post.findClosestByPath(storage);
+             if(creep.transfer(targetStorage) == ERR_NOT_IN_RANGE){
+                 creep.moveTo(targetStorage);
              }
             }
         }
