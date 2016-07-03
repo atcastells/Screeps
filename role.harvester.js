@@ -25,7 +25,7 @@ var roleHarvester = {
                     }
                 });
                 var targetStorage = creep.post.findClosestByPath(storage);
-             if(creep.transfer(targetStorage) == ERR_NOT_IN_RANGE){
+             if(creep.transfer(targetStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
                  creep.moveTo(targetStorage);
              }
             }
