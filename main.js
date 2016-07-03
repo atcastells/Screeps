@@ -32,7 +32,7 @@ module.exports.loop = function () {
 
     /*Populate lists and spawn*/
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    if(builders.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'builder'});
+    if(builders.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
 
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     if(haulers.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
