@@ -63,7 +63,7 @@ var roleOrganizer = {
             };
         /*Manage workers*/
         var creeps = room.find(FIND_MY_CREEPS);
-        for(var cid in Game.creeps) {
+        for(var cid in creeps) {
             if (creeps[cid].memory == 'harvester') {
                 if(!Memory.creeps[cid].workJournal){
                     Memory.creeps[creeps[cid].name].workJournal = [];
