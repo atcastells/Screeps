@@ -51,20 +51,20 @@ module.exports.loop = function () {
     for(let name in Game.creeps){
         var creep = Game.creeps[name];
 
-        if(creep.memory.role == 'harvester'){
+        if(creep.memory.role == 'harvester' && !(creep.spawning)){
             var haulerList = utils.GetCreepsByRole('hauler');
             roleHarvester.run(creep,haulerList);
         }
-        if(creep.memory.role == 'hauler'){
+        if(creep.memory.role == 'hauler' && !(creep.spawning)){
             roleHauler.run(creep);
         }
-        if(creep.memory.role == 'upgrader'){
+        if(creep.memory.role == 'upgrader' && !(creep.spawning)){
             roleUpgrader.run(creep);
         }
-        if (creep.memory.role == 'builder'){
+        if (creep.memory.role == 'builder' && !(creep.spawning)){
             roleBuilder.run(creep);
         }
-        if(creep.memory.role == 'architect'){
+        if(creep.memory.role == 'architect' && !(creep.spawning)){
             roleArchitect.run(creep);
         }
 
