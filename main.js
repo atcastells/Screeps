@@ -4,7 +4,6 @@ var roleUpgrader = require('role.upgrader');
 var roleArchitect = require('role.architect');
 var roleBuider = require('role.builder');
 var utils = require('utils');
-//var roleBuilder = require ('role.builder');
 
 /*
  * ROLES
