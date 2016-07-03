@@ -6,13 +6,14 @@ var roleOrganizer = {
     /*Initial constructions*/
 
     run: function (creep) {
+        var sources = room.find(FIND_SOURCES);
+        var buildings = room.find(FIND_MY_STRUCTURES);
+        var creeps = room.find(FIND_MY_CREEPS);
         for(var id in Game.rooms){
             var room = Game.rooms[id];
             if(!Memory.rooms[room.name]){
                 Memory.rooms[room.name]={};
-                var sources = room.find(FIND_SOURCES);
-                var buildings = room.find(FIND_MY_STRUCTURES);
-                var creeps = room.find(FIND_MY_CREEPS);
+
                 /*for(var x in sources) {
                     var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
 
@@ -61,38 +62,24 @@ var roleOrganizer = {
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
                     Memory.rooms[room.name].sources.push({id: sources[ids].id ,slots: 3, klair: klair,distance: sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos)});
                 };
-
-
-            /*
-            *
-            *if (!creep.memory.source){
-
-             for (var i = 0; i < Memory.rooms[creep.room.name].sources.length ; i++) {
-             if (Memory.rooms[creep.room.name].sources[ i].slots > 0 && Memory.rooms[creep.room.name].sources[ i].klair==false){
-             Memory.rooms[creep.room.name].sources[ i].slots--;
-             creep.memory.source = Memory.rooms[creep.room.name].sources[ i].id;
-             break;
-             }
-             }
-             }
-            * */
-                /*Manage workers*/
-                for(var i in creeps) {
-                        if (creeps[i].memory == 'harvester') {
-                            Memory.creeps[creeps[i].name].workJournal;
-                            /*Looking for source*/
-                            var sourceId;
-                            for (var j = 0; i < Memory.rooms[creeps[i].room.name].sources.length; j++) {
-                                if (Memory.rooms[creeps[i].room.name].sources[j].slots > 0 && Memory.rooms[creeps[i].room.name].sources[j].klair == false) {
-                                    Memory.rooms[creeps[i].room.name].sources[j].slots--;
-                                    Memory.creeps[creeps[i].name].workJournal.source = Memory.rooms[creeps[i].room.name].sources[j].id;
-                                }
-                            }
-                            Memory.creeps[creeps[i].name].workJournal.push({energyCollected: 0, sourceId: sourceId})
-                        }
-                }
-
             };
+        /*Manage workers*/
+        for(var cid in Game.creeps) {
+            if (creeps[cid].memory == 'harvester') {
+                if(!Memory.creeps[cid].workJournal){
+                    Memory.creeps[creeps[cid].name].workJournal = [];
+                    /*Looking for source*/
+                    var sourceId;
+                    for (var j = 0; j < Memory.rooms[creeps[cid].room.name].sources.length; j++) {
+                        if (Memory.rooms[creeps[cid].room.name].sources[j].slots > 0 && Memory.rooms[creeps[cid].room.name].sources[j].klair == false) {
+                            Memory.rooms[creeps[cid].room.name].sources[j].slots--;
+                            Memory.creeps[creeps[cid].name].workJournal.source = Memory.rooms[creeps[cid].room.name].sources[j].id;
+                        }
+                    }
+                    Memory.creeps[creeps[cid].name].workJournal.push({energyCollected: 0, sourceId: sourceId})
+                }
+            }
+        }
         }
 };
 module.exports = roleOrganizer;
