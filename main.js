@@ -17,7 +17,7 @@ var utils = require('utils');
  * FUNCIONES
  * 
  * fillCreep --> Llena el creep de energia
- * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃ³n
+ * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃÂ³n
  *
  *
  * */
@@ -32,16 +32,16 @@ module.exports.loop = function () {
 
     /*Populate lists and spawn*/
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    if(builders.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
+    if(builders.length < 2) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
 
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
-    if(haulers.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
+    if(haulers.length < 2) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
 
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     if(upgraders.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'upgrader'});
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
+    if(harvesters.length < 4) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
 
     var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
     if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'architect'});
