@@ -22,9 +22,8 @@ var roleArchitect = {
                         Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
                     }
                 }
-                Memory.architectLog.Projects=[];
-                Memory.architectLog.Structures=[];
-                Memory.architectLoc.Structures.push({id: buildings[ids]});
+                Memory.architectLog=[];
+                Memory.architectLog.push({id: buildings[ids]});
                 Memory.rooms[room.name].sources=[];
                 for(var ids in sources){
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
