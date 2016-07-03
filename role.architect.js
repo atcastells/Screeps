@@ -32,24 +32,6 @@ var roleArchitect = {
                 };
             };
         };
-
-
-
-        var containers = creep.room.find(FIND_MY_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_CONTAINER)
-            }})
-
-
-        var spawn = creep.room.find(FIND_MY_STRUCTURES, {
-            filter: (structure) => {
-                return (structure.structureType == STRUCTURE_EXTENSION)
-            }})
-
-        if(stage == 1){
-
-
-        }
     }
 
 }
