@@ -24,10 +24,10 @@ var roleHarvester = {
                         structure.structureType == STRUCTURE_CONTAINER);
                     }
                 });
-                var targetStorage = creep.post.findClosestByPath(storage);
-             if(creep.transfer(targetStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
-                 creep.moveTo(targetStorage);
-             }
+                var targetStorage = creep.pos.findClosestByPath(storage);
+                if(creep.transfer(targetStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(targetStorage);
+                }
             }
         }
     }
