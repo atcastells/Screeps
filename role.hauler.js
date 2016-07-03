@@ -10,6 +10,7 @@ var roleHauler = {
             if(sources){
                 var nearestSource = creep.pos.findClosestByPath(sources);
                 if(creep.pickup(nearestSource) == ERR_NOT_IN_RANGE){
+                    creep.say('Going to ' + nearestSource.pos);
                     creep.moveTo(nearestSource)
                 }
             }
