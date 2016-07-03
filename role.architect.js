@@ -44,8 +44,8 @@ var roleArchitect = {
                 };
             };
         };
-
-
+        /*Create extensions*/
+        
     }
 
 }
