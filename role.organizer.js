@@ -36,24 +36,6 @@ var roleOrganizer = {
 
                 }
 
-                /*Sort sources by distance*/
-                for(var ids in sources){
-                    var spawnPos = Game.spawns.Spawn1.pos;
-                    var tempSource;
-                    var distance = 0;
-                    if(sources.length > 1){
-                        if(sources[ids].pos.getDirectionTo(spawnPos) < distance || distance == 0){
-                            distance = sources[ids].pos.getDirectionTo(spawnPos);
-                            if(ids > 0){
-                                tempSource = sources[0];
-                                sources[0] = sources[ids];
-                                sources[ids] = tempSource;
-                            }
-                    }
-                    }
-
-                }
-
                 /*Log sources*/
                 Memory.rooms[room.name].sources=[];
                 for(var ids in sources){
