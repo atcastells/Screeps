@@ -26,7 +26,7 @@ var roleArchitect = {
                 for (var ids in buildings){
                     var structureType = buildings[ids].structureType;
                     var id = buildings[ids].id;
-                    if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'controller' )){
+                    if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )){
                         Memory.rooms[room.name].architectLog.push({id: id,structureType: structureType});
                     }
                     else {
@@ -44,6 +44,8 @@ var roleArchitect = {
                 };
             };
         };
+
+
     }
 
 }
