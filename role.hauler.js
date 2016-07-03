@@ -13,8 +13,14 @@ var roleHauler = {
                     creep.say('Going to ' + nearestSource);
                     creep.moveTo(nearestSource)
                 }
+                var nearestHauler = creep.pos.findInRange(FIND_MY_CREEPS,4);
+                for (var i in nearestHauler){
+                    if (nearestHauler[i].memory = 'hauler' && creep.carry.energy < (nearestHauler.carry.energy){
+                            creep.transfer(nearestHauler[i],RESOURCE_ENERGY);
+                    }
+                }
             }
-        }
+            }
         else {
             var targets = creep.room.find(FIND_STRUCTURES, {
                     filter: (structure) => {
@@ -32,5 +38,4 @@ var roleHauler = {
         }
     }
 };
-
 module.exports = roleHauler;
