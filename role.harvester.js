@@ -2,8 +2,9 @@ var roleHarvester = {
 
     /** @param {Creep} creep **/
     run: function(creep,list) {
+        var room = Game.rooms[id];
         var targetSource = creep.memory.source;
-        for(var i;  Memory.rooms[creep.room.name].sources.length; i++){
+        for(var i;  Memory.rooms[room.name].sources.length; i++){
             console.log(Memory.rooms[creep.room.name].sources.length);
         }
         creep.moveTo(targetPos);
