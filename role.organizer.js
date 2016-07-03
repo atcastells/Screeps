@@ -44,17 +44,14 @@ var roleOrganizer = {
         };
 
         for(var cid in Memory.creeps) {
-            var sourceId;
             if (Memory.creeps[cid].role == 'harvester') {
                 if(!Memory.creeps[cid].workJournal){
                     Memory.creeps[cid].workJournal = [];
-                    /*Add entries*/
-                    Memory.creeps[cid].workJournal.push({energyCollected: 0})
                     /*Looking for source*/
                     for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
                         if (Memory.rooms[room.name].sources[j].slots > 0 && Memory.rooms[room.name].sources[j].klair == false) {
                             Memory.rooms[room.name].sources[j].slots--;
-                            Memory.creeps[cid].workJournal.source = Memory.rooms[room.name].sources[j].id;
+                            Memory.creeps[cid].workJournal.push({energyCollected: 0, source : Memory.rooms[room.name].sources[j].id})
                             break;
                         }
                     }
