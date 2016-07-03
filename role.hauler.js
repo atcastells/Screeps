@@ -15,7 +15,7 @@ var roleHauler = {
                 }
                 var nearestHauler = creep.pos.findInRange(FIND_MY_CREEPS,4);
                 for (var i in nearestHauler){
-                    if (nearestHauler[i].memory = 'hauler' && creep.carry.energy < (nearestHauler.carry.energy){
+                    if (nearestHauler[i].memory = 'hauler' && creep.carry.energy < (nearestHauler.carry.energy)){
                             creep.transfer(nearestHauler[i],RESOURCE_ENERGY);
                     }
                 }
