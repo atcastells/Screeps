@@ -2,7 +2,7 @@
  * Created by acastells on 03/07/2016.
  */
 var factory = {
-    
+
     normalSpawn: function (maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters) {
         var organizers = _.filter(Game.creeps, (creep) => creep.memory.role == 'organizer');
         if(organizers.length < maxOrganizers) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'});
@@ -21,5 +21,5 @@ var factory = {
 
     }
     /*Populate lists and spawn*/
-}
-module.export = factory;
+};
+module.exports = factory;
