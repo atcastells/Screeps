@@ -12,11 +12,6 @@ var utils = {
         var targetStructure = creep.pos.findClosestByRange(source);
         targetStructure.transferEnergy(creep);
     },
-    buildInRange: function (pos, int) { //pos: building position, int: radius
-        
-        
-        
-    },
     GetCreepsByRole: function (role){
     var CreepList = [];
     for (var creepname in Game.creeps){
