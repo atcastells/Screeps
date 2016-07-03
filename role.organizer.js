@@ -10,57 +10,58 @@ var roleOrganizer = {
             var room = Game.rooms[id];
             if(!Memory.rooms[room.name]){
                 Memory.rooms[room.name]={};
-                var sources = room.find(FIND_SOURCES);
                 var buildings = room.find(FIND_MY_STRUCTURES);
                 /*for(var x in sources) {
-                    var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
+                 var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
 
-                    for(var i in path) {
-                        Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
-                    }*/
+                 for(var i in path) {
+                 Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
+                 }*/
+            }
+
+            Memory.rooms[room.name].organizerLog=[];    //Log with all room buildings
+            for (var ids in buildings){
+                var structureType = buildings[ids].structureType;
+                var id = buildings[ids].id;
+                if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )){
+                    Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType});
+                }
+                else {
+                    if (buildings[ids].structureType == 'spawn'){
+                        var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                        Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType,controllers: controllers});
+                    }
                 }
 
-                Memory.rooms[room.name].organizerLog=[];    //Log with all room buildings
-                for (var ids in buildings){
-                    var structureType = buildings[ids].structureType;
-                    var id = buildings[ids].id;
-                    if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )){
-                        Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType});
-                    }
-                    else {
-                        if (buildings[ids].structureType == 'spawn'){
-                            var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                            Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType,controllers: controllers});
-                        }
-                    }
-
-                }
-
-                /*Log sources*/
-                Memory.rooms[room.name].sources=[];
-                for(var ids in sources){
-                    var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
-                    Memory.rooms[room.name].sources.push({id: sources[ids].id ,slots: 3, klair: klair,distance: sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos)});
-                };
+            }
+            var sources = room.find(FIND_SOURCES);
+            /*Log sources*/
+            Memory.rooms[room.name].sources=[];
+            for(var ids in sources){
+                var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
+                Memory.rooms[room.name].sources.push({id: sources[ids].id ,slots: 3, klair: klair,distance: sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos)});
             };
-        /*Manage workers*/
-        var creeps = room.find(FIND_MY_CREEPS);
-        for(var cid in creeps) {
-            if (creeps[cid].memory == 'harvester') {
-                if(!Memory.creeps[cid].workJournal){
-                    Memory.creeps[creeps[cid].name].workJournal = [];
+        };
+
+        for(var cid in Memory.creeps) {
+            var sourceId;
+            if (Memory.creeps[cid].role == 'harvester') {
+                if(!Memory.creeps[cid].workJournal || 1 == 1){
+                    Memory.creeps[cid].workJournal = [];
+                    /*Add entries*/
+                    Memory.creeps[cid].workJournal.push({energyCollected: 0,source: sourceId})
                     /*Looking for source*/
-                    var sourceId;
-                    for (var j = 0; j < Memory.rooms[creeps[cid].room.name].sources.length; j++) {
-                        if (Memory.rooms[creeps[cid].room.name].sources[j].slots > 0 && Memory.rooms[creeps[cid].room.name].sources[j].klair == false) {
-                            Memory.rooms[creeps[cid].room.name].sources[j].slots--;
-                            Memory.creeps[creeps[cid].name].workJournal.source = Memory.rooms[creeps[cid].room.name].sources[j].id;
+                    for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                        console.log(sources[j]);
+                        if (Memory.rooms[room.name].sources[j].slots > 0 && Memory.rooms[room.name].sources[j].klair == false) {
+                            Memory.rooms[room.name].sources[j].slots--;
+                            Memory.creeps[cid].workJournal.source = Memory.rooms[room.name].sources[j].id;
                         }
                     }
-                    Memory.creeps[creeps[cid].name].workJournal.push({energyCollected: 0, sourceId: sourceId})
                 }
             }
         }
-        }
+    }
 };
+
 module.exports = roleOrganizer;
