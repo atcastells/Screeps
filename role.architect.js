@@ -26,7 +26,7 @@ var roleArchitect = {
                 for (var ids in buildings){
                     var structureType = buildings[ids].structureType;
                     var id = buildings[ids].id;
-                    Memory.architectLog.push({id: id,structureType: structureType});
+                    Memory.rooms[room.name].architectLog.push({id: id,structureType: structureType});
                 }
                 Memory.rooms[room.name].sources=[];
                 for(var ids in sources){
