@@ -29,7 +29,7 @@ module.exports.loop = function () {
         if(!Game.creeps[name]) delete Memory.creeps[name];
     }
 
-    /*Populate lists*/
+    /*Populate lists and spawn*/
     
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     if(haulers.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
@@ -46,7 +46,8 @@ module.exports.loop = function () {
         var creep = Game.creeps[name];
 
         if(creep.memory.role == 'harvester'){
-            roleHarvester.run(creep);
+            var haulerList = utils.GetCreepsByRole('hauler');
+            roleHarvester.run(creep,haulerList);
         }
         if(creep.memory.role == 'hauler'){
             roleHauler.run(creep);

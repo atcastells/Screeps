@@ -1,7 +1,7 @@
 var roleHarvester = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {
+    run: function(creep,list) {
         var sources = creep.room.find(FIND_SOURCES);
         var targetPos = creep.pos.findClosestByPath(sources);
         creep.moveTo(targetPos);
@@ -12,11 +12,7 @@ var roleHarvester = {
             }
         }
         else {
-            var haulers = creep.room.find(FIND_CREEPS, {
-                filter: (creep) => {
-                    return (creep.memory.role == 'hauler');
-                }
-            });
+            var haulers = list;
             if(haulers.length > 0){
                 creep.drop(RESOURCE_ENERGY);
             }

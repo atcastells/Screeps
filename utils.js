@@ -16,6 +16,15 @@ var utils = {
         var x = pos[0];
         var y = pos [1];
 
+    },
+    GetCreepsByRole: function (role){
+    var CreepList = [];
+    for (var creepname in Game.creeps){
+        if (Game.creeps[creepname].memory.role == role){
+            CreepList.push(Game.creeps[creepname]);
+        }
     }
+    return CreepList
+}
 };
 module.exports = utils;
