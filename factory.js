@@ -3,7 +3,17 @@
  */
 var factory = {
 
+
     normalSpawn: function (maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters) {
+        var spawnList = Game.room.find(FIND_MY_STRUCTURES, {
+            filter:(structure) => {
+                return (structure.structureType == STRUCTURE_SPAWN);
+            }
+        });
+
+        var queue = spawnList.length;
+        console.log(queue);
+
         var organizers = _.filter(Game.creeps, (creep) => creep.memory.role == 'organizer');
         if(organizers.length < maxOrganizers){
             if (!(Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))){
