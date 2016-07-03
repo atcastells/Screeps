@@ -31,6 +31,9 @@ module.exports.loop = function () {
     }
 
     /*Populate lists and spawn*/
+    var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
+    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'architect'});
+
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     if(builders.length < 2) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
 
@@ -42,11 +45,7 @@ module.exports.loop = function () {
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length < 4) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
-
-    var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
-    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'architect'});
-
-
+    
     /*Creep Iteration*/
     for(let name in Game.creeps){
         var creep = Game.creeps[name];
