@@ -78,8 +78,8 @@ var roleOrganizer = {
             * */
                 /*Manage workers*/
                 for(var i in creeps) {
-                    if (!(creeps[i].memory.workjournal.source)) {
                         if (creeps[i].memory == 'harvester') {
+                            Memory.creeps[creeps[i].name].workJournal;
                             /*Looking for source*/
                             var sourceId;
                             for (var j = 0; i < Memory.rooms[creeps[i].room.name].sources.length; j++) {
@@ -90,7 +90,6 @@ var roleOrganizer = {
                             }
                             Memory.creeps[creeps[i].name].workJournal.push({energyCollected: 0, sourceId: sourceId})
                         }
-                    }
                 }
 
             };
