@@ -23,7 +23,11 @@ var roleArchitect = {
                     }
                 }
                 Memory.architectLog=[];
-                Memory.architectLog.push({id: buildings[ids], position: buildings.view});
+                for (var ids in buildings){
+                    var structureType = buildings[ids].structureType;
+                    var id = buildings[ids].id;
+                    Memory.architectLog.push({id: id,structureType: structureType});
+                }
                 Memory.rooms[room.name].sources=[];
                 for(var ids in sources){
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
