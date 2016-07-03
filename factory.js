@@ -4,8 +4,8 @@
 var factory = {
 
 
-    normalSpawn: function (maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters) {
-        var spawnList = Game.room.find(FIND_MY_STRUCTURES, {
+    normalSpawn: function (maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters,roomlist) {
+        var spawnList = Game.rooms['sim'].find(FIND_MY_STRUCTURES, {
             filter:(structure) => {
                 return (structure.structureType == STRUCTURE_SPAWN);
             }
