@@ -22,7 +22,7 @@ var roleArchitect = {
                         Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
                     }
                 }
-                Memory.room[room.name].architectLog=[];
+                Memory.rooms[room.name].architectLog=[];
                 for (var ids in buildings){
                     var structureType = buildings[ids].structureType;
                     var id = buildings[ids].id;
