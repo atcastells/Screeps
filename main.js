@@ -12,6 +12,7 @@ var utils = require('utils');
  * Hauler: Recoje recursos del suelo y los entrega
  * Upgrader: Mejora edificios
  * Builder: Construye los edificios designados
+ * Architect: Log buildings and designates construction spots
  * 
  * FUNCIONES
  * 
