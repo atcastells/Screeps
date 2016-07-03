@@ -8,8 +8,9 @@ var roleHauler = {
         if(creep.carry.energy < creep.carryCapacity){
             var sources = creep.room.find(FIND_DROPPED_ENERGY);
             if(sources){
-                if(creep.pickup(sources[0]) == ERR_NOT_IN_RANGE){
-                    creep.moveTo(sources[0])
+                var nearestSource = creep.pos.findClosestByPath(sources);
+                if(creep.pickup(nearestSource) == ERR_NOT_IN_RANGE){
+                    creep.moveTo(nearestSource)
                 }
             }
         }
