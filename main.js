@@ -2,7 +2,7 @@ var roleHarvester = require('role.harvester');
 var roleHauler = require('role.hauler');
 var roleUpgrader = require('role.upgrader');
 var roleArchitect = require('role.architect');
-var roleBuider = require('role.builder');
+var roleBuilder = require('role.builder');
 var utils = require('utils');
 
 /*
@@ -17,8 +17,8 @@ var utils = require('utils');
  * FUNCIONES
  * 
  * fillCreep --> Llena el creep de energia
- * buildInRange --> Construye 'x' en el rango de 'y' de una ubicación
- * 
+ * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃ³n
+ *
  *
  * */
 
@@ -31,7 +31,9 @@ module.exports.loop = function () {
     }
 
     /*Populate lists and spawn*/
-    
+    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+    if(builders.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'builder'});
+
     var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
     if(haulers.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
 
@@ -40,8 +42,9 @@ module.exports.loop = function () {
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
+
     var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
-    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'architect'});
+    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'architect'});
 
 
     /*Creep Iteration*/
