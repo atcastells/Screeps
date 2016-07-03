@@ -36,11 +36,13 @@ var roleOrganizer = {
             }
             var sources = room.find(FIND_SOURCES);
             /*Log sources*/
-            Memory.rooms[room.name].sources=[];
-            for(var ids in sources){
-                var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
-                Memory.rooms[room.name].sources.push({id: sources[ids].id ,slots: 3, klair: klair,distance: sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos)});
-            };
+            if(!Memory.rooms[room.name].sources){
+                Memory.rooms[room.name].sources=[];
+                for(var ids in sources){
+                    var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
+                    Memory.rooms[room.name].sources.push({id: sources[ids].id ,slots: 3, klair: klair,distance: sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos)});
+                };
+            }
         };
 
         for(var cid in Memory.creeps) {
