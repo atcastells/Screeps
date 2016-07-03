@@ -3,6 +3,7 @@ var roleHauler = require('role.hauler');
 var roleUpgrader = require('role.upgrader');
 var roleOrganizer = require('role.organizer');
 var roleBuilder = require('role.builder');
+var factory = require('factory');
 var utils = require('utils');
 
 /*
@@ -28,22 +29,8 @@ module.exports.loop = function () {
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) delete Memory.creeps[name];
     }
-
-    /*Populate lists and spawn*/
-    var organizers = _.filter(Game.creeps, (creep) => creep.memory.role == 'organizer');
-    if(organizers.length < 1) var newName = Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'organizer'});
-
-    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-    if(builders.length < 0) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'});
-
-    var haulers = _.filter(Game.creeps, (creep) => creep.memory.role == 'hauler');
-    if(haulers.length < 0) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'hauler'});
-
-    var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
-    if(upgraders.length < 0) var newName = Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: 'upgrader'});
-
-    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-    if(harvesters.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
+    /*Normal Spawn*/
+    factory.normalSpawn(1,4,4,2,5);
 
     /*Creep Iteration*/
     for(let name in Game.creeps){
