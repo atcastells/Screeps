@@ -39,6 +39,8 @@ module.exports.loop = function () {
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
     if(harvesters.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'harvester'});
+    var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
+    if(architects.length < 1) var newName = Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'architect'});
 
 
     /*Creep Iteration*/
