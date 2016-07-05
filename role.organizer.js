@@ -38,7 +38,7 @@ var roleOrganizer = {
                     }
 
                 }
-            }
+            };
             var resources = room.find(FIND_SOURCES);
             /*Log sources*/
             if (!Memory.rooms[room.name].sources) {
@@ -53,9 +53,7 @@ var roleOrganizer = {
                     source.posY = resources[ids].pos.y;
                     Memory.rooms[room.name].sources.push(source);
                 }
-                ;
-
-            }
+            };
 
             for (var cid in Memory.creeps) {
                 if (Memory.creeps[cid].role == 'harvester') {
