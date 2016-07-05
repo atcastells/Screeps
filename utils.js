@@ -27,7 +27,7 @@ var utils = {
         const MAX_SPOTS = 9;
         var numSpot = 9;
         var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1));
-        console.log('LookLenght '+ look.length )
+        console.log('LookLenght '+ look )
         for (var i = 0; i < look.length; i++){
             if(look.indexOf('wall') > -1){
                 numSpot--;
