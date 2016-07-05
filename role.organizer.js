@@ -36,15 +36,17 @@ var roleOrganizer = {
             }
             var sources = room.find(FIND_SOURCES);
             /*Log sources*/
-            if(!Memory.rooms[room.name].sources){
-                Memory.rooms[room.name].sources={};
+            if(!Memory.rooms[room.name].source){
+                Memory.rooms[room.name].sources=[];
+                Memory.rooms[room.name].source={};
+                Memory.rooms[room.name].sources.push(Memory.rooms[room.name].source);
                 for(var ids in sources){
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
-                    Memory.rooms[room.name].sources.id = sources[ids].id;
-                    Memory.rooms[room.name].sources.slots = 3;
-                    Memory.rooms[room.name].sources.klair = klair;
-                    Memory.rooms[room.name].sources.posX = sources[ids].pos.x;
-                    Memory.rooms[room.name].sources.posY = sources[ids].pos.y;
+                    Memory.rooms[room.name].source.id = sources[ids].id;
+                    Memory.rooms[room.name].source.slots = 3;
+                    Memory.rooms[room.name].source.klair = klair;
+                    Memory.rooms[room.name].source.posX = sources[ids].pos.x;
+                    Memory.rooms[room.name].source.posY = sources[ids].pos.y;
 
                 };
             }
