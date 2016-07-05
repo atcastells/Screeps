@@ -29,6 +29,7 @@ var utils = {
         var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1));
         for (var property in look) {
             if(property == 'wall'){
+                console.log(property);
                 numSpot--;
             }
         }
