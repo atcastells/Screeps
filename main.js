@@ -33,7 +33,7 @@ module.exports.loop = function () {
     factory.normalSpawn(1, 4, 4, 2, 5);
 
     /*Creep Iteration*/
-    for(let name in Game.creeps){
+    for(var name in Memory.creeps){
         var creep = Game.creeps[name];
 
         if(creep.memory.role == 'harvester' && !(creep.spawning)){

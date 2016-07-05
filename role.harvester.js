@@ -4,7 +4,7 @@ var roleHarvester = {
     run: function(creep,list) {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
-            var targetSource = Memory.creeps[creep.name].workJournal.source;
+            var targetSource = creep.workJournal;
             console.log(targetSource)
             creep.moveTo(targetPos);
             if (creep.carry.energy < creep.carryCapacity) {
