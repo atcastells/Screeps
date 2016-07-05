@@ -6,8 +6,9 @@ var roleOrganizer = {
     /*Initial constructions*/
 
     run: function (creep) {
-        for(var id in Game.rooms){
+        for(var id in Memory.rooms){
             var room = Game.rooms[id];
+            console.log(Memory.rooms[room.name])
             if(!Memory.rooms[room.name].structures) {
                 var buildings = room.find(FIND_MY_STRUCTURES);
                 /*for(var x in sources) {
@@ -55,7 +56,6 @@ var roleOrganizer = {
                 
             }
         };
-
         for(var cid in Memory.creeps) {
             if (Memory.creeps[cid].role == 'harvester') {
                 if(!Memory.creeps[cid].workJournal){
