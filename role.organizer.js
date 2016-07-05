@@ -8,8 +8,9 @@ var roleOrganizer = {
     run: function (creep) {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
-            console.log(Memory.rooms[room.name]);
+
             if (!Memory.rooms[room.name]) {
+                Memory.rooms[room.name] = {};
                 var buildings = room.find(FIND_MY_STRUCTURES);
                 /*for(var x in sources) {
                  var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
@@ -17,7 +18,6 @@ var roleOrganizer = {
                  for(var i in path) {
                  Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
                  }*/
-
                 if(!Memory.rooms[room.name].structures) {
                     Memory.rooms[room.name].structures = [];    //Log with all room buildings
                     for (var ids in buildings) {
