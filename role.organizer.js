@@ -6,7 +6,6 @@ var roleOrganizer = {
     /*Initial constructions*/
 
     run: function (creep) {
-        console.log(Memory.rooms);
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
             console.log(Memory.rooms[room.name]);
@@ -39,7 +38,8 @@ var roleOrganizer = {
                     }
 
                 }
-            };
+            }
+            ;
             var resources = room.find(FIND_SOURCES);
             /*Log sources*/
             if (!Memory.rooms[room.name].sources) {
@@ -54,7 +54,8 @@ var roleOrganizer = {
                     source.posY = resources[ids].pos.y;
                     Memory.rooms[room.name].sources.push(source);
                 }
-            };
+            }
+            ;
 
             for (var cid in Memory.creeps) {
                 if (Memory.creeps[cid].role == 'harvester') {
@@ -75,5 +76,4 @@ var roleOrganizer = {
         }
     }
 };
-
 module.exports = roleOrganizer;
