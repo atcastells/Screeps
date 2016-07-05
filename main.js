@@ -18,7 +18,7 @@ var utils = require('utils');
  * FUNCIONES
  * 
  * fillCreep --> Llena el creep de energia
- * buildInRange --> Construye 'x' en el rango de 'y' de una ubicación
+ * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃ³n
  *
  *
  * */
@@ -26,14 +26,15 @@ var utils = require('utils');
 
 module.exports.loop = function () {
 
-    for(var name in Game.creeps) {
+    for(var name in Memory.creeps) {
         if(!Game.creeps[name]) delete Memory.creeps[name];
     }
+
     /*Normal Spawn*/
     factory.normalSpawn(1, 4, 4, 2, 5);
 
     /*Creep Iteration*/
-    for(var name in Memory.creeps){
+    for(var name in Game.creeps){
         var creep = Game.creeps[name];
 
         if(creep.memory.role == 'harvester' && !(creep.spawning)){
