@@ -38,8 +38,8 @@ var roleOrganizer = {
             /*Log sources*/
             if(!Memory.rooms[room.name].source){
                 Memory.rooms[room.name].sources=[];
-                Memory.rooms[room.name].source={};
-                Memory.rooms[room.name].sources.push(Memory.rooms[room.name].source);
+                source={};
+                Memory.rooms[room.name].sources.push(source);
                 for(var ids in sources){
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
                     Memory.rooms[room.name].source.id = sources[ids].id;
