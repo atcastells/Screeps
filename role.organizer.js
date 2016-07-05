@@ -34,21 +34,21 @@ var roleOrganizer = {
                 }
 
             }
-            var sources = room.find(FIND_SOURCES);
+            var resources = room.find(FIND_SOURCES);
             /*Log sources*/
-            if(!Memory.rooms[room.name].source){
+            if(!Memory.rooms[room.name].sources){
                 Memory.rooms[room.name].sources=[];
-               var source = {};
-                Memory.rooms[room.name].sources.push(source);
-                for(var ids in sources){
+                for (var ids in sources) {
+                    var source = {};
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
-                    Memory.rooms[room.name].sources.source.id = sources[ids].id;
-                    Memory.rooms[room.name].sources.source.slots = 3;
-                    Memory.rooms[room.name].sources.source.klair = klair;
-                    Memory.rooms[room.name].sources.source.posX = sources[ids].pos.x;
-                    Memory.rooms[room.name].sources.source.posY = sources[ids].pos.y;
-
+                    source.id = resources[ids].id;
+                    source.slots = 3;
+                    source.klair = klair;
+                    source.posX = resources[ids].pos.x;
+                    source.posY = resources[ids].pos.y;
+                    Memory.rooms[room.name].sources.push(source);
                 };
+                
             }
         };
 
