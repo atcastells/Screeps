@@ -7,15 +7,13 @@ var roleHarvester = {
             var targetSource = Memory.creeps[creep.name].workJournal.sources;
             var targetPos;
             for(var i = 0; i < Memory.rooms[room.name].sources.length; i++){
-                if(Memory.rooms[room.name].sources[i] == targetSource){
-                    targetPos = Memory.rooms[room.name].sources[i];
+                if(Memory.rooms[room.name].sources[i].id == targetSource){
+                    var resource = Game.getObjectById(Memory.rooms[room.name].sources[i].id);
                 }
             }
-            creep.moveTo(targetPos);
             if (creep.carry.energy < creep.carryCapacity) {
-                var sources = creep.room.find(FIND_SOURCES);
-                if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(sources[0]);
+                if (creep.harvest(resource) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(resource);
                 }
             }
             else {
