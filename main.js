@@ -26,7 +26,7 @@ var utils = require('utils');
 
 module.exports.loop = function () {
 
-    for(var name in Memory.creeps) {
+    for(var name in Game.creeps) {
         if(!Game.creeps[name]) delete Memory.creeps[name];
     }
     /*Normal Spawn*/

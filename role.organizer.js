@@ -48,12 +48,13 @@ var roleOrganizer = {
         for(var cid in Memory.creeps) {
             if (Memory.creeps[cid].role == 'harvester') {
                 if(!Memory.creeps[cid].workJournal){
-                    Memory.creeps[cid].workJournal = [];
+                    Memory.creeps[cid].workJournal = {};
                     /*Looking for source*/
                     for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
                         if (Memory.rooms[room.name].sources[j].slots > 0 && Memory.rooms[room.name].sources[j].klair == false) {
                             Memory.rooms[room.name].sources[j].slots--;
-                            Memory.creeps[cid].workJournal.push({energyCollected: 0, source : Memory.rooms[room.name].sources[j].id})
+                            Memory.creeps[cid].workJournal.energyCollected = 0;
+                            Memory.creeps[cid].workJournal.sources = Memory.rooms[room.name].sources[j].id;
                             break;
                         }
                     }
