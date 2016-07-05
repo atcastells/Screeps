@@ -8,8 +8,7 @@ var roleOrganizer = {
     run: function (creep) {
         for(var id in Game.rooms){
             var room = Game.rooms[id];
-            if(!Memory.rooms[room.name]){
-                Memory.rooms[room.name]={};
+            if(!Memory.rooms[room.name].structures){
                 var buildings = room.find(FIND_MY_STRUCTURES);
                 /*for(var x in sources) {
                  var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
