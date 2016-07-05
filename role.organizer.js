@@ -8,7 +8,7 @@ var roleOrganizer = {
     run: function (creep) {
         for(var id in Game.rooms){
             var room = Game.rooms[id];
-            if(!Memory.rooms[room.name].structures){
+            if(!Memory.rooms[room.name].structures) {
                 var buildings = room.find(FIND_MY_STRUCTURES);
                 /*for(var x in sources) {
                  var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
@@ -16,22 +16,27 @@ var roleOrganizer = {
                  for(var i in path) {
                  Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
                  }*/
-            }
 
-            Memory.rooms[room.name].structures=[];    //Log with all room buildings
-            for (var ids in buildings){
-                var structureType = buildings[ids].structureType;
-                var id = buildings[ids].id;
-                if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )){
-                    Memory.rooms[room.name].structures.push({id: id,structureType: structureType});
-                }
-                else {
-                    if (buildings[ids].structureType == 'spawn'){
-                        var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                        Memory.rooms[room.name].structures.push({id: id,structureType: structureType,controllers: controllers});
+
+                Memory.rooms[room.name].structures = [];    //Log with all room buildings
+                for (var ids in buildings) {
+                    var structureType = buildings[ids].structureType;
+                    var id = buildings[ids].id;
+                    if (!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )) {
+                        Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
-                }
+                    else {
+                        if (buildings[ids].structureType == 'spawn') {
+                            var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                            Memory.rooms[room.name].structures.push({
+                                id: id,
+                                structureType: structureType,
+                                controllers: controllers
+                            });
+                        }
+                    }
 
+                }
             }
             var resources = room.find(FIND_SOURCES);
             /*Log sources*/
