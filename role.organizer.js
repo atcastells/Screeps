@@ -42,11 +42,11 @@ var roleOrganizer = {
                 Memory.rooms[room.name].sources.push(source);
                 for(var ids in sources){
                     var klair = sources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: { structureType: STRUCTURE_KEEPER_LAIR }}).length > 0;
-                    Memory.rooms[room.name].source.id = sources[ids].id;
-                    Memory.rooms[room.name].source.slots = 3;
-                    Memory.rooms[room.name].source.klair = klair;
-                    Memory.rooms[room.name].source.posX = sources[ids].pos.x;
-                    Memory.rooms[room.name].source.posY = sources[ids].pos.y;
+                    Memory.rooms[room.name].sources.source.id = sources[ids].id;
+                    Memory.rooms[room.name].sources.source.slots = 3;
+                    Memory.rooms[room.name].sources.source.klair = klair;
+                    Memory.rooms[room.name].sources.source.posX = sources[ids].pos.x;
+                    Memory.rooms[room.name].sources.source.posY = sources[ids].pos.y;
 
                 };
             }
