@@ -19,17 +19,17 @@ var roleOrganizer = {
                  }*/
             }
 
-            Memory.rooms[room.name].organizerLog=[];    //Log with all room buildings
+            Memory.rooms[room.name].structures=[];    //Log with all room buildings
             for (var ids in buildings){
                 var structureType = buildings[ids].structureType;
                 var id = buildings[ids].id;
                 if(!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )){
-                    Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType});
+                    Memory.rooms[room.name].structures.push({id: id,structureType: structureType});
                 }
                 else {
                     if (buildings[ids].structureType == 'spawn'){
                         var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                        Memory.rooms[room.name].organizerLog.push({id: id,structureType: structureType,controllers: controllers});
+                        Memory.rooms[room.name].structures.push({id: id,structureType: structureType,controllers: controllers});
                     }
                 }
 
