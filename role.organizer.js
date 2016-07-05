@@ -6,6 +6,7 @@ var roleOrganizer = {
     /*Initial constructions*/
 
     run: function (creep) {
+        console.log(Memory.rooms);
         for (var id in Memory.rooms) {
             var room = Game.rooms[id];
             console.log(Memory.rooms[room.name]);
