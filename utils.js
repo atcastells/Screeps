@@ -13,13 +13,19 @@ var utils = {
         targetStructure.transferEnergy(creep);
     },
     GetCreepsByRole: function (role){
-    var CreepList = [];
-    for (var creepname in Game.creeps){
-        if (Game.creeps[creepname].memory.role == role){
-            CreepList.push(Game.creeps[creepname]);
+        var CreepList = [];
+        for (var creepname in Game.creeps){
+            if (Game.creeps[creepname].memory.role == role){
+                CreepList.push(Game.creeps[creepname]);
+            }
         }
+        return CreepList
+    },
+    miningSpots(id,creep,room){
+        object = Game.getObjectById(id);
+        const MAX_SPOTS = 9;
+        var numSpot = 0;
+        var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1),true);
     }
-    return CreepList
-}
 };
 module.exports = utils;

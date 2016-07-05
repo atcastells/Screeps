@@ -18,7 +18,7 @@ var utils = require('utils');
  * FUNCIONES
  * 
  * fillCreep --> Llena el creep de energia
- * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃ³n
+ * buildInRange --> Construye 'x' en el rango de 'y' de una ubicación
  *
  *
  * */
@@ -30,7 +30,7 @@ module.exports.loop = function () {
         if(!Game.creeps[name]) delete Memory.creeps[name];
     }
 
-    /*Normal Spawn*/
+    /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters,roomlist
     factory.normalSpawn(1, 4, 4, 2, 5);
 
     /*Creep Iteration*/
