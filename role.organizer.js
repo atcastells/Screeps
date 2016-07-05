@@ -43,7 +43,9 @@ var roleOrganizer = {
                     Memory.rooms[room.name].sources.id = sources[ids].id;
                     Memory.rooms[room.name].sources.slots = 3;
                     Memory.rooms[room.name].sources.klair = klair;
-                    Memory.rooms[room.name].sources.distance = sources[ids].pos.getDirectionTo(Game.spawns.Spawn1.pos);
+                    Memory.rooms[room.name].sources.posX = sources[ids].pos.x;
+                    Memory.rooms[room.name].sources.posY = sources[ids].pos.y;
+
                 };
             }
         };
