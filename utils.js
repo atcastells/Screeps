@@ -23,9 +23,11 @@ var utils = {
     },
     miningSpots(id,creep,room){
         var object = Game.getObjectById(id);
+        console.log(id,creep.name,room.name)
         const MAX_SPOTS = 9;
         var numSpot = 9;
-        var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1),true);
+        var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1));
+        console.log('LookLenght '+ look.length )
         for (var i = 0; i < look.length; i++){
             if(look.indexOf('wall') > -1){
                 numSpot--;
