@@ -22,7 +22,7 @@ var utils = {
         return CreepList
     },
     miningSpots(id,creep,room){
-        object = Game.getObjectById(id);
+        var object = Game.getObjectById(id);
         const MAX_SPOTS = 9;
         var numSpot = 9;
         var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1),true);
