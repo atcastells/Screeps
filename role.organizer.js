@@ -1,6 +1,7 @@
 /**
  * Created by acastells on 03/07/2016.
  */
+var utils = require('utils');
 var roleOrganizer = {
 
     /*Initial constructions*/
