@@ -160,11 +160,14 @@ var roleOrganizer = {
                     Memory.roles.upgraders = {};
                     for(var i in Memory.roles){
                         Memory.roles[i].id = i;
+                        Memory.roles[i].members = [];
                     }
                 }
                 else {
-                    if(Memory.roles[Memory.creeps[cid].role]){
-
+                    for(var i in Memory.roles){
+                        if(Memory.roles[i].id == Memory.creeps[cid].role && Memory.roles[i].members.contains(Memory.creeps[cid].name == -1)){
+                            Memory.roles[i].members.push(Memory.creeps[cid].name)
+                        }
                     }
                 }
                 if (Memory.creeps[cid].role == 'harvester') {
