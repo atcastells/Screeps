@@ -53,7 +53,7 @@ var roleOrganizer = {
                     var resourceArea = creep.room.lookAtArea((object.pos.y-1),(object.pos.x-1),(object.pos.y+1),(object.pos.x+1),true);
                     var freeSlots = 9;
                     for (var i = 0; i < resourceArea.length; i++) {
-                        if(resourceArea[i] == 'wall'){
+                        if(resourceArea[i].terrain == 'wall'){
                             freeSlots--;
                         }
                     }
