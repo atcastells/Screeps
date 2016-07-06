@@ -54,15 +54,15 @@ var roleOrganizer = {
                     var freeSlots = 9;
                     source.test = resourceArea;
                     for (var i = 1; i < resourceArea.length; i++) {
+                        console.log(i+'   '+resourceArea[i].terrain)
+                        console.log(i+'   '+resourceArea[i].terrain)
                         if(resourceArea[i].terrain == 'wall'){
-                            console.log(source.id)
-                            console.log(i+'   '+resourceArea[i].terrain)
                             freeSlots--;
-                            console.log('freeslots = '+ freeSlots)
                         }
                         else {
-                            console.log('Not wall' + i);
+                            console.log('Not wall');
                         }
+                        console.log('There are '+freeSlots+' slots free')
                     }
                     source.slots = freeSlots;
                     source.klair = klair;
