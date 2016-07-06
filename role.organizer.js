@@ -152,11 +152,19 @@ var roleOrganizer = {
             module.exports = roleOrganizer;
             for (var cid in Memory.creeps) {
                 if(!Memory.roles){
-                    Memory.roles = [];
+                    Memory.roles = {};
+                    Memory.roles.builders = {};
+                    Memory.roles.harvesters = {};
+                    Memory.roles.haulers = {};
+                    Memory.roles.organizers = {};
+                    Memory.roles.upgraders = {};
+                    for(var i in Memory.roles){
+                        Memory.roles[i].id = i;
+                    }
                 }
                 else {
-                    if(!Memory.roles[Memory.creeps[cid].role]){
-                        Memory.roles[Memory.creeps[cid].role] = [];
+                    if(Memory.roles[creeps[cid].role]){
+
                     }
                 }
                 if (Memory.creeps[cid].role == 'harvester') {
