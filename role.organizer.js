@@ -50,7 +50,7 @@ var roleOrganizer = {
                     var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                     source.id = resources[ids].id;
                     var object = Game.getObjectById(resources[ids].id);
-                    var resourceArea = creep.room.lookAtArea((object.pos.y-1),(object.pos.x-1),(object.pos.y+1),(object.pos.x+1));
+                    var resourceArea = creep.room.lookAtArea((object.pos.y-1),(object.pos.x-1),(object.pos.y+1),(object.pos.x+1),true);
                     source.test = resourceArea;
                     var freeSlots = 0;
                     for (var i in resourceArea) {
