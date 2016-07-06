@@ -13,6 +13,7 @@
                                 for (var ids in buildings) {
                                     var structureType = buildings[ids].structureType;
                                     var id = buildings[ids].id;
+                                    var name = buildings[ids].name;
                                     if (!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )) {
                                         Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                                     }
@@ -21,6 +22,7 @@
                                             var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
                                             Memory.rooms[room.name].structures.push({
                                                 id: id,
+                                                name: name,
                                                 structureType: structureType,
                                                 controllers: controllers
                                             });
