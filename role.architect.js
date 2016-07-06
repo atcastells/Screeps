@@ -27,6 +27,7 @@ var roleArchitect = {
                 }
             }
             /*Create resource routes*/
+            console.log(numSpawns)
             if(numSpawns < 2){
                 var numSources = Memory.rooms[room.name].sources.length;
                 if(!(Memory.rooms[room.name].architectLog.resourceRoutes.length == numSources)){
