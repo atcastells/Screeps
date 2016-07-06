@@ -18,6 +18,11 @@ var factory = {
             }
         }
         else {
+            var architects = _.filter(Game.creeps, (creep) => creep.memory.role == 'architect');
+            if(architects.length < 1){
+                if (!(Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'architect'}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) {
+                }
+            }
             var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
             if(builders.length < maxBuilders){
                 if (!(Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: 'builder'}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) {

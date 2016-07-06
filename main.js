@@ -3,6 +3,7 @@ var roleHauler = require('role.hauler');
 var roleUpgrader = require('role.upgrader');
 var roleOrganizer = require('role.organizer');
 var roleBuilder = require('role.builder');
+var roleArchitect = require('role.architect')
 var factory = require('factory');
 var utils = require('utils');
 
@@ -75,7 +76,9 @@ module.exports.loop = function () {
         if(creep.memory.role == 'organizer' && !(creep.spawning)){
             roleOrganizer.run(creep);
         }
-
+        if(creep.memory.role == 'architect' && !(creep.spawning)){
+            roleArchitect.run(creep);
+        }
     }
 
 
