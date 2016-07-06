@@ -54,7 +54,7 @@ var roleOrganizer = {
                     source.test = resourceArea;
                     var freeSlots = 0;
                     for (var i in resourceArea) {
-                        if(resourceArea[i] == 'wall'){
+                        if(resourceArea[i].terrain == 'wall'){
                             freeSlots++;
                         }
                     }
