@@ -7,6 +7,8 @@
                         var room = Game.rooms[id];
                         if (!Memory.rooms[room.name]) {
                             Memory.rooms[room.name] = {};
+                        }
+                        else {
                             var buildings = room.find(FIND_MY_STRUCTURES);
                             if (!Memory.rooms[room.name].structures) {
                                 Memory.rooms[room.name].structures = [];    //Log with all room buildings
@@ -31,6 +33,8 @@
 
                                 }
                             }
+                        }
+
                         }
                         if(!Memory.rooms[room.name].architectLog){
                             Memory.rooms[room.name].architectLog = [];
@@ -106,6 +110,6 @@
                         }
                     }
 
-                }
-            };
+                };
+
             module.exports = roleOrganizer;
