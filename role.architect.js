@@ -27,16 +27,20 @@ var roleArchitect = {
                 }
             }
             /*Create resource routes*/
-            console.log(numSpawns)
+
             if(numSpawns < 2){
                 var numSources = Memory.rooms[room.name].sources.length;
-                if(!(Memory.rooms[room.name].architectLog.resourceRoutes.length == numSources)){
+                if(!(Memory.rooms[room.name].architectLog[0].length == numSources)){
                     for(var i in Memory.rooms[room.name].sources){
-                        sourceObject = Game.getObjectById(Memory.rooms[room.name].sources[i].id);
-                        route = {};
-                        route.path =Game.spawns[spawn].pos.findPathTo(sourceObject);
-                        Memory.rooms[room.name].architectLog.resourceRoutes.push(route);
+                        var sourceObject = Game.getObjectById(Memory.rooms[room.name].sources[i].id);
+                        var route = {};
+                        route.path = Game.spawns[spawn.name].pos.findPathTo(sourceObject);
+                        Memory.rooms[room.name].architectLog[0].push(route);
                     }
+                }
+
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                    console.log(Memory.rooms[room.name].architectLog[0][j].length)
                 }
             }
         }
