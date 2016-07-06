@@ -32,7 +32,7 @@
                         }
                         if(!Memory.rooms[room.name].architectLog){
                             Memory.rooms[room.name].architectLog = [];
-                            var routes = {};
+                            var resourceRoutes = {};
                             var haulerQueues = {};
                             Memory.rooms[room.name].architectLog.push(routes,haulerQueues);
                         }
