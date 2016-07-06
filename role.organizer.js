@@ -155,7 +155,7 @@ var roleOrganizer = {
                     Memory.roles = [];
                 }
                 else {
-                    if(!Memory.roles.creeps[cid.role]){
+                    if(!Memory.roles[Memory.creeps[cid.role]]){
                         Memory.creeps[cid.role] = {};
                     }
                 }
