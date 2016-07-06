@@ -163,7 +163,7 @@ var roleOrganizer = {
                     }
                 }
                 else {
-                    if(Memory.roles[creeps[cid].role]){
+                    if(Memory.roles[Memory.creeps[cid].role]){
 
                     }
                 }
