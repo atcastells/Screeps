@@ -40,7 +40,7 @@
                             Memory.rooms[room.name].architectLog = [];
                             var resourceRoutes = {};
                             var haulerQueues = {};
-                            Memory.rooms[room.name].architectLog.push(routes,haulerQueues);
+                            Memory.rooms[room.name].architectLog.push(resourceRoutes,haulerQueues);
                         }
                         ;
                         var resources = room.find(FIND_SOURCES);
