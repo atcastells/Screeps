@@ -169,12 +169,12 @@ var roleOrganizer = {
                         if(Memory.roles[i].id == Memory.creeps[cid].role){
                             var creepExists = false;
                             for(var j = 0;j < Memory.roles[i].members.length; j++){
-                                if(Memory.roles[i].members[j] == Memory.creeps[cid].name){
+                                if(Memory.roles[i].members[j] == cid){
                                     creepExists = true;
-                                    if(creepExists == false){
-                                        Memory.roles[i].members.push(Memory.creeps[cid].name)
-                                    }
                                 }
+                            }
+                            if(creepExists == false){
+                                Memory.roles[i].members.push(cid)
                             }
                         }
                     }
