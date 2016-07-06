@@ -19,7 +19,7 @@ var roleOrganizer = {
                  for(var i in path) {
                  Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
                  }*/
-                if(!Memory.rooms[room.name].structures) {
+                if (!Memory.rooms[room.name].structures) {
                     Memory.rooms[room.name].structures = [];    //Log with all room buildings
                     for (var ids in buildings) {
                         var structureType = buildings[ids].structureType;
@@ -40,7 +40,8 @@ var roleOrganizer = {
 
                     }
                 }
-            };
+            }
+            ;
             var resources = room.find(FIND_SOURCES);
             /*Log sources*/
             if (!Memory.rooms[room.name].sources) {
@@ -50,10 +51,10 @@ var roleOrganizer = {
                     var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                     source.id = resources[ids].id;
                     var resourceObject = Game.getObjectById(resources[ids].id);
-                    var resourceArea = creep.room.lookAtArea((resourceObject.pos.y-1),(resourceObject.pos.x-1),(resourceObject.pos.y+1),(resourceObject.pos.x+1),true);
+                    var resourceArea = creep.room.lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
                     var freeSlots = 9;
                     for (var i = 1; i < resourceArea.length; i++) {
-                        if(resourceArea[i].terrain == 'wall'){
+                        if (resourceArea[i].terrain == 'wall') {
                             freeSlots--;
                         }
                     }
@@ -61,14 +62,16 @@ var roleOrganizer = {
                     source.klair = klair;
                     Memory.rooms[room.name].sources.push(source);
                 }
-            };
-            for (var cid in Memory.creeps){
+            }
+            ;
+            for (var cid in Memory.creeps) {
                 var role = Memory.creeps[cid].role;
-                if(!Memory.creeps.role) {
+                if (!Memory.creeps.role) {
                     Memory.creeps.role = [];
                 }
-                }
+                ;
             }
+
             for (var cid in Memory.creeps) {
                 if (Memory.creeps[cid].role == 'harvester') {
                     if (!Memory.creeps[cid].workJournal) {
@@ -86,6 +89,7 @@ var roleOrganizer = {
                 }
             }
         }
+    }
     }
 };
 module.exports = roleOrganizer;
