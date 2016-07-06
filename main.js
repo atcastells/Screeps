@@ -18,7 +18,17 @@ var utils = require('utils');
  * FUNCIONES
  * 
  * fillCreep --> Llena el creep de energia
- * buildInRange --> Construye 'x' en el rango de 'y' de una ubicaciÃ³n
+ *
+ * TODO
+ *
+ * Assign haulers to node (2 x node)
+ * Hauler waitin queue
+ * 
+ *
+ *
+ *
+ *
+ *
  *
  *
  * */

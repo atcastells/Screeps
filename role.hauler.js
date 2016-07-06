@@ -5,6 +5,7 @@ var roleHauler = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
+        
         if(creep.carry.energy < creep.carryCapacity){
             var sources = creep.room.find(FIND_DROPPED_ENERGY);
             if(sources){
