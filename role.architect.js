@@ -21,7 +21,7 @@ var roleArchitect = {
             var spawn;
             var numSpawns = 0;
             for(var i in Memory.rooms[room.name].structures){
-                if(Memory.rooms[room.name].structures[i].structureType = 'spawn'){
+                if(Memory.rooms[room.name].structures[i].structureType == 'spawn'){
                     numSpawns++;
                     spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
                 }
