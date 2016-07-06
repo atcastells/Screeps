@@ -89,7 +89,7 @@ var roleOrganizer = {
                 }
             }
         }
-    }
+    
     }
 };
 module.exports = roleOrganizer;
