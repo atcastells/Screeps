@@ -52,17 +52,12 @@ var roleOrganizer = {
                     var object = Game.getObjectById(resources[ids].id);
                     var resourceArea = creep.room.lookAtArea((object.pos.y-1),(object.pos.x-1),(object.pos.y+1),(object.pos.x+1),true);
                     var freeSlots = 9;
-                    source.test = resourceArea;
                     for (var i = 1; i < resourceArea.length; i++) {
-                        console.log(i+'   '+resourceArea[i].terrain)
-                        console.log(i+'   '+resourceArea[i].terrain)
                         if(resourceArea[i].terrain == 'wall'){
                             freeSlots--;
                         }
                         else {
-                            console.log('Not wall');
                         }
-                        console.log('There are '+freeSlots+' slots free')
                     }
                     source.slots = freeSlots;
                     source.klair = klair;
