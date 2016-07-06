@@ -10,6 +10,9 @@
                         }
                         else {
                             var buildings = room.find(FIND_MY_STRUCTURES);
+                            var controllers = room.find(FIND_STRUCTURES, {
+                                filter: {structureType: STRUCTURE_CONTROLLER}});
+                            var buildingsNoController = utils.diff(buildings,controllers);
                             if (!Memory.rooms[room.name].structures) {
                                 Memory.rooms[room.name].structures = [];    //Log with all room buildings
                                 for (var ids in buildings) {
