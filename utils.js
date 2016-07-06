@@ -20,20 +20,6 @@ var utils = {
             }
         }
         return CreepList
-    },
-    miningSpots(id,creep,room){
-        var object = Game.getObjectById(id);
-        console.log(id,creep.name,room.name)
-        const MAX_SPOTS = 9;
-        var numSpot = 9;
-        var look = creep.room.lookAtArea((object.pos.y+1),(object.pos.x+1),(object.pos.x-1),(object.pos.y-1));
-        for (var property in look) {
-            if(property == 'wall'){
-                console.log(look[property]);
-                numSpot--;
-            }
-        }
-        return numSpot;
     }
 };
 module.exports = utils;
