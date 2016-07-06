@@ -159,7 +159,7 @@ var roleOrganizer = {
                     Memory.roles.organizers = {};
                     Memory.roles.upgraders = {};
                     for(var i in Memory.roles){
-                        Memory.roles[i].id = i;
+                        Memory.roles[i].id = Memory.creeps[cid].role;
                         Memory.roles[i].members = [];
                     }
                 }
