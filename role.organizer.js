@@ -1,24 +1,13 @@
             /*/**
-             * Created by acastells on 03/07/2016.
+             * Organizer role manages the memory of the creeps and buildings
              */
-            var utils = require('utils');
             var roleOrganizer = {
-
-                /*Initial constructions*/
-
                 run: function (creep) {
                     for (var id in Game.rooms) {
                         var room = Game.rooms[id];
-
                         if (!Memory.rooms[room.name]) {
                             Memory.rooms[room.name] = {};
                             var buildings = room.find(FIND_MY_STRUCTURES);
-                            /*for(var x in sources) {
-                             var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
-
-                             for(var i in path) {
-                             Game.rooms.sim.createConstructionSite(path[i].x, path[ i].y, STRUCTURE_ROAD);
-                             }*/
                             if (!Memory.rooms[room.name].structures) {
                                 Memory.rooms[room.name].structures = [];    //Log with all room buildings
                                 for (var ids in buildings) {
@@ -41,6 +30,12 @@
                                 }
                             }
                         }
+                        if(!Memory.rooms[room.name].architectLog){
+                            Memory.rooms[room.name].architectLog = [];
+                            var routes = {};
+                            var haulerQueues = {};
+                            Memory.rooms[room.name].architectLog.push(routes,haulerQueues);
+                        }
                         ;
                         var resources = room.find(FIND_SOURCES);
                         /*Log sources*/
@@ -62,8 +57,7 @@
                                 source.klair = klair;
                                 Memory.rooms[room.name].sources.push(source);
                             }
-                        };
-                        module.exports = roleOrganizer;
+                        }
                         for (var cid in Memory.creeps) {
                             if(!Memory.roles){
                                 Memory.roles = {};
