@@ -66,7 +66,7 @@ var roleOrganizer = {
             ;
             for (var cid in Memory.creeps) {
                 var role = Memory.creeps[cid].role;
-                if (!Memory.creeps.role) {
+                if (!Memory.creeps[role]) {
                     Memory.creeps.role = [];
                 }
                 ;
@@ -89,7 +89,7 @@ var roleOrganizer = {
                 }
             }
         }
-    
+
     }
 };
 module.exports = roleOrganizer;
