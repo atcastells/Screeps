@@ -155,8 +155,9 @@ var roleOrganizer = {
                     Memory.roles = [];
                 }
                 else {
-                    if(!Memory.roles[Memory.creeps[cid.role]]){
-                        Memory.creeps[cid.role] = {};
+                    if(!Memory.roles[Memory.creeps[cid].role]){
+                        obj[Memory.creeps[cid].role] = {};
+                        Memory.roles.push(obj);
                     }
                 }
                 if (Memory.creeps[cid].role == 'harvester') {
