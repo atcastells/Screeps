@@ -38,8 +38,8 @@
                         }
                         if(!Memory.rooms[room.name].architectLog){
                             Memory.rooms[room.name].architectLog = [];
-                            var resourceRoutes = {};
-                            var haulerQueues = {};
+                            var resourceRoutes = [];
+                            var haulerQueues = [];
                             Memory.rooms[room.name].architectLog.push(resourceRoutes,haulerQueues);
                         }
                         ;
