@@ -165,8 +165,16 @@ var roleOrganizer = {
                 }
                 else {
                     for(var i in Memory.roles){
-                        if(Memory.roles[i].id == Memory.creeps[cid].role && Memory.roles[i].members.contains(Memory.creeps[cid].name == -1)){
-                            Memory.roles[i].members.push(Memory.creeps[cid].name)
+                        if(Memory.roles[i].id == Memory.creeps[cid].role){
+                            var creepExists = false;
+                            for(var j = 0;j < Memory.roles[i].members.length; j++){
+                                if(Memory.roles[i].members[j] == Memory.creeps[cid].name){
+                                    creepExists = true;
+                                    if(creepExists == false){
+                                        Memory.roles[i].members.push(Memory.creeps[cid].name)
+                                    }
+                                }
+                            }
                         }
                     }
                 }
