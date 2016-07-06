@@ -60,6 +60,9 @@ var roleOrganizer = {
                             freeSlots--;
                             console.log('freeslots = '+ freeSlots)
                         }
+                        else {
+                            console.log('Not wall' + i);
+                        }
                     }
                     source.slots = freeSlots;
                     source.klair = klair;
