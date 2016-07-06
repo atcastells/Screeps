@@ -1,6 +1,7 @@
             /*/**
              * Organizer role manages the memory of the creeps and buildings
              */
+            var utils = require('utils');
             var roleOrganizer = {
                 run: function (creep) {
                     for (var id in Game.rooms) {
