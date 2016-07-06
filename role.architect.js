@@ -35,13 +35,34 @@ var roleArchitect = {
                         var sourceObject = Game.getObjectById(Memory.rooms[room.name].sources[i].id);
                         var route = {};
                         route.path = Game.spawns[spawn.name].pos.findPathTo(sourceObject);
+                        route.buildingPriority = false;
+                        route.buildFinished = false;
+                        route.repair = true;
                         Memory.rooms[room.name].architectLog[0].push(route);
                     }
                 }
-
+                /*Designate construction points*/
                 for(var j in Memory.rooms[room.name].architectLog[0]){
-                    console.log(Memory.rooms[room.name].architectLog[0][j].length)
+                    console.log(Memory.rooms[room.name].architectLog[0][j].path.length)
+                    for(var k in Memory.rooms[room.name].architectLog[0][j].path){
+
+                        var pathRoute =  Memory.rooms[room.name].architectLog[0][j].path[k];
+                        Game.rooms[room.name].createConstructionSite(pathRoute.x,pathRoute.y, STRUCTURE_ROAD);
+                    }
                 }
+
+                /*Add priorities to construction points*/
+                var shortest = -1;
+                var position
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                    Memory.rooms[room.name].architectLog[0][j].buildingPriority = false;
+                    if((shortest == -1 || Memory.rooms[room.name].architectLog[0][j].path.length < shortest) && Memory.rooms[room.name].architectLog[0][j].buildFinished == false){
+                        shortest = Memory.rooms[room.name].architectLog[0][j].path.length;
+                        position = j;
+                    }
+                }
+                Memory.rooms[room.name].architectLog[0][position].buildingPriority = true;
+
             }
         }
     }

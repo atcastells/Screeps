@@ -1,85 +1,68 @@
-var roleHarvester = require('role.harvester');
-var roleHauler = require('role.hauler');
-var roleUpgrader = require('role.upgrader');
-var roleOrganizer = require('role.organizer');
-var roleBuilder = require('role.builder');
-var roleArchitect = require('role.architect')
-var factory = require('factory');
-var utils = require('utils');
+/**
+ * Created by acastells on 06/07/2016.
+ */
 
-/*
- * ROLES
- *
- * Harvester: Mina recursos y los dropea
- * Hauler: Recoje recursos del suelo y los entrega
- * Upgrader: Mejora edificios
- * Builder: Construye los edificios designados
- * Organizer: Log buildings and designates construction spots
- * 
- * FUNCIONES
- * 
- * fillCreep --> Llena el creep de energia
- *
- * TODO
- *
- * Assign haulers to node (2 x node)
- * Hauler waitin queue
- * 
- *
- *
- *
- *
- *
- *
- *
- * */
+//Memory.rooms[room.name].architectLog.push(resourceRoutes,haulerQueues);
 
+//var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
+//
+//for(var i in path) {
+//Game.rooms.sim.createConstructionSite(path[ i].x, path[ i].y, STRUCTURE_ROAD);
+//}
+//
+//
+//
+//
 
-module.exports.loop = function () {
-
-    for(var name in Memory.creeps) {
-        if(!Game.creeps[name]) {
-            if(Memory.roles){
-                for(var i in Memory.roles){
-                    for(var j in Memory.roles[i].members){
-                        if(Memory.roles[i].members[j] == name){
-                            var deleteIndex = Memory.roles[i].members[j].indexOf(name);
-                            Memory.roles[i].members.splice(deleteIndex,1);
-                        }
-                    }
+var roleArchitect = {
+    run: function (creep) {
+        for (var id in Game.rooms) {
+            var room = Game.rooms[id];
+            var spawn;
+            var numSpawns = 0;
+            for(var i in Memory.rooms[room.name].structures){
+                if(Memory.rooms[room.name].structures[i].structureType == 'spawn'){
+                    numSpawns++;
+                    spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
                 }
             }
-            delete Memory.creeps[name]
+            /*Create resource routes*/
+
+            if(numSpawns < 2){
+                var numSources = Memory.rooms[room.name].sources.length;
+                if(!(Memory.rooms[room.name].architectLog[0].length == numSources)){
+                    for(var i in Memory.rooms[room.name].sources){
+                        var sourceObject = Game.getObjectById(Memory.rooms[room.name].sources[i].id);
+                        var route = {};
+                        route.path = Game.spawns[spawn.name].pos.findPathTo(sourceObject);
+                        route.buildingPriority = false;
+                        route.buildFinished = false;
+                        route.repair = true;
+                        Memory.rooms[room.name].architectLog[0].push(route);
+                    }
+                }
+                /*Designate construction points*/
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                    console.log(Memory.rooms[room.name].architectLog[0][j].path.length)
+                    for(var k in Memory.rooms[room.name].architectLog[0][j].path){
+
+                        var pathRoute =  Memory.rooms[room.name].architectLog[0][j].path[k];
+                        Game.rooms[room.name].createConstructionSite(pathRoute.x,pathRoute.y, STRUCTURE_ROAD);
+                    }
+                }
+
+                /*Add priorities to construction points*/
+                var shortest = 0;
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                    console.log(shortest + ' '+ Memory.rooms[room.name].architectLog[0][j].path.length)
+                    if(shortest == 0 || Memory.rooms[room.name].architectLog[0][j].path.length < shortest){
+                        shortest = j;
+                    }
+                }
+                Memory.rooms[room.name].architectLog[0][shortest].buildingPriority = true;
+
+            }
         }
     }
-
-    /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters,roomlist
-    factory.normalSpawn(1, 4, 4, 2, 5);
-
-    /*Creep Iteration*/
-    for(var name in Game.creeps){
-        var creep = Game.creeps[name];
-
-        if(creep.memory.role == 'harvester' && !(creep.spawning)){
-            var haulerList = utils.GetCreepsByRole('hauler');
-            roleHarvester.run(creep,haulerList);
-        }
-        if(creep.memory.role == 'hauler' && !(creep.spawning)){
-            roleHauler.run(creep);
-        }
-        if(creep.memory.role == 'upgrader' && !(creep.spawning)){
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role == 'builder' && !(creep.spawning)){
-            roleBuilder.run(creep);
-        }
-        if(creep.memory.role == 'organizer' && !(creep.spawning)){
-            roleOrganizer.run(creep);
-        }
-        if(creep.memory.role == 'architect' && !(creep.spawning)){
-            roleArchitect.run(creep);
-        }
-    }
-
-
-}
+};
+module.exports = roleArchitect;
