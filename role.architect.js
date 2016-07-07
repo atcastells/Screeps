@@ -2,18 +2,6 @@
  * Created by acastells on 06/07/2016.
  */
 
-//Memory.rooms[room.name].architectLog.push(resourceRoutes,haulerQueues);
-
-//var path = Game.spawns.Spawn1.pos.findPathTo(sources[x]);
-//
-//for(var i in path) {
-//Game.rooms.sim.createConstructionSite(path[ i].x, path[ i].y, STRUCTURE_ROAD);
-//}
-//
-//
-//
-//
-
 var roleArchitect = {
     run: function (creep) {
         for (var id in Game.rooms) {
