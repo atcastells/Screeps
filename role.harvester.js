@@ -4,7 +4,7 @@ var roleHarvester = {
     run: function(creep,list) {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
-            var targetSource = Memory.creeps[creep.name].workJournal.sources;
+            var targetSource = Memory.creeps[creep.name].workLog.sources;
             var targetPos;
             for(var i = 0; i < Memory.rooms[room.name].sources.length; i++){
                 if(Memory.rooms[room.name].sources[i].id == targetSource){

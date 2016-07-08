@@ -8,7 +8,7 @@ var roleArchitect = {
             var room = Game.rooms[id];
             var spawn;
             var numSpawns = 0;
-            for(var i in Memory.rooms[room.name].structures){
+            for(var i in Memory.rooms[room.name].structures){   //Spawn num in room
                 if(Memory.rooms[room.name].structures[i].structureType == 'spawn'){
                     numSpawns++;
                     spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
@@ -16,7 +16,7 @@ var roleArchitect = {
             }
             /*Create resource routes*/
 
-            if(numSpawns < 2){
+            if(numSpawns < 2){  //If 1 spawn
                 var numSources = Memory.rooms[room.name].sources.length;
                 if(!(Memory.rooms[room.name].architectLog[0].length == numSources)){
                     for(var i in Memory.rooms[room.name].sources){
@@ -29,6 +29,7 @@ var roleArchitect = {
                         Memory.rooms[room.name].architectLog[0].push(route);
                     }
                 }
+                
                 /*Designate construction points*/
                 for(var j in Memory.rooms[room.name].architectLog[0]){
                     console.log(Memory.rooms[room.name].architectLog[0][j].path.length)
@@ -51,6 +52,16 @@ var roleArchitect = {
                 }
                 Memory.rooms[room.name].architectLog[0][position].buildingPriority = true;
 
+            }
+            else{}
+
+            /*Create projects*/
+
+            if(!Memory.rooms[room.name].projects){
+                Memory.rooms[room.name].projects = [];  //Project Array
+            }
+            else {
+                //Code for creating and maintaining projects
             }
         }
     }
