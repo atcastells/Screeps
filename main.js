@@ -53,9 +53,11 @@ module.exports.loop = function () {
         }
     }
 
-    /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters,roomlist
-    factory.normalSpawn(1, 4, 4, 2, 5);
-
+    /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters
+    //factory.normalSpawn(1, 4, 4, 2, 5);
+    
+    /*Dynamic Spawn*/
+    factory.dynamicSpawn();
     /*Creep Iteration*/
     for(var name in Game.creeps){
         var creep = Game.creeps[name];
