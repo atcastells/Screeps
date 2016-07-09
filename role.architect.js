@@ -62,6 +62,8 @@ var roleArchitect = {
             }
             else {
                 //Code for creating and maintaining projects
+
+                
             }
         }
     }
