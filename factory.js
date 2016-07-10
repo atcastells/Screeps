@@ -163,7 +163,7 @@ var factory = {
 
                 /*Process queue*/
                 for (var x in Memory.rooms[room.name].factory.factoryQueue) {
-                    if (!(Memory.rooms[room.name].factory.factoryQueue[x] == 0)) {
+                    if (!(Memory.rooms[room.name].factory.factoryQueue[x] > 0)) {
                         var role;
                         if (x == 0) {
                             role = 'hauler';
@@ -183,9 +183,10 @@ var factory = {
 
                         }
                     }
+
                     var creepToProcess = factory.creeps(role);
                     Memory.rooms[room.name].factory.queue = creepToProcess
-                    if(spawn.canCreateCreep(creepToProcess.body) == OK){
+                    if(spawn.canCreateCreep(creepToProcess.body) == OK && spawn.spawning == null){
                         spawn.createCreep(creepToProcess.body,null,{role: role});
                         Memory.rooms[room.name].factory.factoryQueue[x] += -1;
                         Memory.rooms[room.name].factory.created[x] += +1;
@@ -195,6 +196,7 @@ var factory = {
         }
     },
     creeps: function (role) {
+
         var roles = ['hauler','upgrader','harvester','builder','architect'];
         var bodyHauler = [CARRY,MOVE,CARRY];
         var bodyUpgrader = [CARRY,MOVE,WORK];
@@ -202,21 +204,27 @@ var factory = {
         var bodyBuilder = [CARRY,MOVE,WORK];
         var bodyMisc = [MOVE];
         var creep = {};
-        var selectedRole = roles.indexOf(role);
-        if(roles[selectedRole] == 'hauler'){
+        var selectedRole = 0;
+        selectedRole = roles.indexOf(role);
+        if(selectedRole == 0){
             creep.body = bodyHauler;
+            return creep
         }
-        if(roles[selectedRole] == 'upgrader'){
+        if(selectedRole == 1){
             creep.body = bodyUpgrader
+            return creep
         }
-        if(roles[selectedRole] == 'harvester') {
+        if(selectedRole == 2) {
             creep.body = bodyHarvester;
+            return creep
         }
-        if(roles[selectedRole] == 'builder'){
+        if(selectedRole == 3){
             creep.body = bodyBuilder;
+            return creep
         }
-        else {
+        if(selectedRole == 4){
             creep.body = bodyMisc;
+            return creep
         }
         return creep;
     }
