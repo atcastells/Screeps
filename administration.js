@@ -8,8 +8,8 @@ var administration = {
             if (!Memory.rooms[room.name]) {     //Memory room
                 Memory.rooms[room.name] = {};
             }
-            if(!Memory.rooms.structures){       //Memory structure
-                Memory.rooms.structures = [];
+            if(!Memory.rooms[room.name].structures){       //Memory structure
+                Memory.rooms[room.name].structures = [];
             }
             else {
                 for(var k in Game.structures){
