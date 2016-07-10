@@ -14,15 +14,16 @@ var administration = {
             else {
                 for(var k in Game.structures){
                     var structureType = Game.structures[k].structureType;
-                    console.log(structureType);
                     var id = Game.structures[k].id;
                     var name = Game.structures[k].name;
                     if(Memory.rooms[room.name].structures.length == 0){
                         Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
                     else {
-                        if(Memory.rooms[room.name].structures.indexOf(id) == -1){
-                            Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
+                        for(var l in Memory.rooms[room.name].structures){
+                            if(Memory.rooms[room.name].structures[l].indexOf(id) == -1){
+                                Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
+                            }
                         }
                     }
                 }
