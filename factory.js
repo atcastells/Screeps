@@ -69,7 +69,10 @@ var factory = {
             else {
                 for(var j in Game.spawns){
                     if(Memory.rooms[room.name].factory.spawns.indexOf(Game.spawns[j].id) == -1){
-                        Memory.rooms[room.name].factory.spawns.push({id: Game.spawns[j].id,energy: Game.spawns[j].energy})
+                        Memory.rooms[room.name].factory.spawns.push(Game.spawns[j].id)
+                    }
+                    else {
+                        break;
                     }
                 }
 
