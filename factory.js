@@ -188,13 +188,13 @@ var factory = {
                     Memory.rooms[room.name].factory.queue = creepToProcess;
                     if(spawn.canCreateCreep(creepToProcess.body) == OK && spawn.spawning == null){
                         spawn.createCreep(creepToProcess.body,null,{role: role});
-                        factory.recount(role);
+                        factory.recount(role,room);
                     }
                 }
             }
         }
     },
-    recount: function (role) {
+    recount: function (role,room) {
         var roles = ['hauler','upgrader','harvester','builder','architect'];
         var hauler = 0;
         var upgrader = 1;
