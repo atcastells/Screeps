@@ -14,23 +14,31 @@ var administration = {
             else {
                 for(var k in Game.structures){
                     var structureType = Game.structures[k].structureType;
+                    console.log(structureType);
                     var id = Game.structures[k].id;
                     var name = Game.structures[k].name;
-                    if (!(structureType == 'spawn' || structureType == 'extension' )) {
-                        Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
-                    }
-                    else {
-                        if (structureType == 'spawn') {
-                            var controllers = Game.structures[k].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                            Memory.rooms[room.name].structures.push({
-                                id: id,
-                                name: name,
-                                structureType: structureType,
-                                controllers: controllers
-                            });
+                    var exists = true;
+                    for(var l in Memory.rooms[room.name].structures){
+                        if(!(Memory.rooms[room.name].structures.id == id)){
+                            exists = false;
                         }
                     }
-
+                    if(!exists){
+                        if (!(structureType == 'spawn' || structureType == 'extension' )) {
+                            Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
+                        }
+                        else {
+                            if (structureType == 'spawn') {
+                                var controllers = Game.structures[k].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                                Memory.rooms[room.name].structures.push({
+                                    id: id,
+                                    name: name,
+                                    structureType: structureType,
+                                    controllers: controllers
+                                });
+                            }
+                        }
+                    }
                 }
                 if (!Memory.rooms[room.name].architectLog) {
                     var creep = Game.creeps[0];
