@@ -55,7 +55,7 @@ var factory = {
                 Memory.rooms[room.name].factory = {};
                 Memory.rooms[room.name].factory.created = [0, 0, 0, 0, 0];
                 Memory.rooms[room.name].factory.factoryQueue = [0, 0, 0, 0, 0];
-                Memory.rooms[room.name].factory.toCreate = [0, 0, 0, 0, 1];
+                Memory.rooms[room.name].factory.toCreate = [0, 0, 0, 0, 0];
                 Memory.rooms[room.name].factory.isLocked = false;
                 Memory.rooms[room.name].factory.haulersLock = false;
             }
