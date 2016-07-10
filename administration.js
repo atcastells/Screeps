@@ -21,7 +21,7 @@ var administration = {
                     }
                     else {
                         if (structureType == 'spawn') {
-                            var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                            var controllers = Game.structures[k].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
                             Memory.rooms[room.name].structures.push({
                                 id: id,
                                 name: name,
@@ -123,7 +123,7 @@ var administration = {
                     }
                 }
             }
-        }   
+        }
     }
 }
 

@@ -64,7 +64,7 @@ var factory = {
             for(var i in Memory.rooms[room.name].structures){   //Spawn num in room
                 if(Memory.rooms[room.name].structures[i].structureType == 'spawn'){
                     numSpawns++;
-                    spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
+                    var spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
                 }
             }
             /*Fill toCreate list*/
