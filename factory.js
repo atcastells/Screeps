@@ -48,6 +48,7 @@ var factory = {
     },
     dynamicSpawn: function () {
         for (var id in Game.rooms) {
+            
             var room = Game.rooms[id];
             var numslots;
             var numSources = Memory.rooms[room.name].sources.length;
@@ -93,6 +94,10 @@ var factory = {
                 Memory.rooms[room.name].factory.toCreate[3] = builder;
                 Memory.rooms[room.name].factory.toCreate[4] = architect;
                 Memory.rooms[room.name].factory.toCreate[5] = organizer;
+                Memory.rooms[room.name].factory.isLocked = true;
+            }
+            else {
+
             }
 
 
