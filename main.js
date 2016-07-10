@@ -9,6 +9,7 @@ var utils = require('utils');
 
 module.exports.loop = function () {
 
+
     for(var name in Memory.creeps) {
         if(!Game.creeps[name]) {
             if(Memory.roles){
@@ -29,53 +30,55 @@ module.exports.loop = function () {
     if(!Memory.init){
         Memory.init = {};
         Memory.init.explorer = false;
+        Memory.init.memoryReady = false;
     }
     if(Memory.init.explorer == false){
-        Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'explorer', action: 'wander'});
+        Game.spawns.Spawn1.createCreep([MOVE], 'explorer1', {role: 'explorer', action: 'wander'});
         Memory.init.explorer = true;
     }
-
-
-
+    
     /*Administrate Memory*/
+
     for(var i in Game.rooms){
         var room = Game.rooms[i];
         var creep;
         for(var c in Game.creeps){
-            if(Game.creeps[c].room.name == room.name){
+            if(Game.creeps[c].room.name == room.name && Game.creeps[c].name == 'explorer1'){
                 creep = Game.creeps[c];
+                console.log(creep)
+                administration.run(creep);
+                Memory.init.memoryReady = true;
             }
         }
-        administration.run(creep);
+
     }
 
+    if(Memory.init.memoryReady == true){
+        /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters
+        //factory.normalSpawn(1, 4, 4, 2, 5);
 
-    /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters
-    //factory.normalSpawn(1, 4, 4, 2, 5);
+        /*Dynamic Spawn*/
+        factory.dynamicSpawn();
+        /*Creep Iteration*/
+        for(var name in Game.creeps){
+            var creep = Game.creeps[name];
 
-    /*Dynamic Spawn*/
-    factory.dynamicSpawn();
-    /*Creep Iteration*/
-    for(var name in Game.creeps){
-        var creep = Game.creeps[name];
-
-        if(creep.memory.role == 'harvester' && !(creep.spawning)){
-            var haulerList = utils.GetCreepsByRole('hauler');
-            roleHarvester.run(creep,haulerList);
-        }
-        if(creep.memory.role == 'hauler' && !(creep.spawning)){
-            roleHauler.run(creep);
-        }
-        if(creep.memory.role == 'upgrader' && !(creep.spawning)){
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role == 'builder' && !(creep.spawning)){
-            roleBuilder.run(creep);
-        }
-        if(creep.memory.role == 'architect' && !(creep.spawning)){
-            roleArchitect.run(creep);
+            if(creep.memory.role == 'harvester' && !(creep.spawning)){
+                var haulerList = utils.GetCreepsByRole('hauler');
+                roleHarvester.run(creep,haulerList);
+            }
+            if(creep.memory.role == 'hauler' && !(creep.spawning)){
+                roleHauler.run(creep);
+            }
+            if(creep.memory.role == 'upgrader' && !(creep.spawning)){
+                roleUpgrader.run(creep);
+            }
+            if (creep.memory.role == 'builder' && !(creep.spawning)){
+                roleBuilder.run(creep);
+            }
+            if(creep.memory.role == 'architect' && !(creep.spawning)){
+                roleArchitect.run(creep);
+            }
         }
     }
-
-
 }
