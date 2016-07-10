@@ -82,9 +82,14 @@ var factory = {
                     }
                 }
 
+                if(Memory.rooms[room.name].projects){
+                    for(var k in Memory.rooms[room.name].projects){
+                        builder += 3;
+                    }
+                }
+
                 harvester = numSlots;
                 upgrader = parseInt(harvester/4);
-                builder = parseInt(harvester/2);
                 architect = 1;
 
                 Memory.rooms[room.name].factory.toCreate[0] = hauler;
@@ -144,8 +149,11 @@ var factory = {
                             Memory.rooms[room.name].factory.factoryQueue[2] = harvestersToAdd;
                         }
                         if(i == 3){ //Builders
+                            var buildersToAdd = 0;
                             if(Memory.rooms[room.name].factory.created[4] == 1){
-                                var buildersToAdd = Memory.rooms[room.name].projects.length
+                                for(var k in Memory.rooms[room.name].projects){
+                                    buildersToAdd += 3;
+                                }
                             }
                         }
                         if(i == 4){ //Architects
