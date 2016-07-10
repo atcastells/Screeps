@@ -7,34 +7,6 @@ var roleArchitect = require('role.architect')
 var factory = require('factory');
 var utils = require('utils');
 
-/*
- * ROLES
- *
- * Harvester: Mina recursos y los dropea
- * Hauler: Recoje recursos del suelo y los entrega
- * Upgrader: Mejora edificios
- * Builder: Construye los edificios designados
- * Organizer: Log buildings and designates construction spots
- * 
- * FUNCIONES
- * 
- * fillCreep --> Llena el creep de energia
- *
- * TODO
- *
- * Assign haulers to node (2 x node)
- * Hauler waitin queue
- * 
- *
- *
- *
- *
- *
- *
- *
- * */
-
-
 module.exports.loop = function () {
 
     for(var name in Memory.creeps) {
