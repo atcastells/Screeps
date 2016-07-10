@@ -17,26 +17,12 @@ var administration = {
                     console.log(structureType);
                     var id = Game.structures[k].id;
                     var name = Game.structures[k].name;
-                    var exists = true;
-                    for(var l in Memory.rooms[room.name].structures){
-                        if(!(Memory.rooms[room.name].structures.id == id)){
-                            exists = false;
-                        }
+                    if(Memory.rooms[room.name].structures.length == 0){
+                        Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
-                    if(!exists){
-                        if (!(structureType == 'spawn' || structureType == 'extension' )) {
+                    else {
+                        if(Memory.rooms[room.name].structures.indexOf(id) == -1){
                             Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
-                        }
-                        else {
-                            if (structureType == 'spawn') {
-                                var controllers = Game.structures[k].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                                Memory.rooms[room.name].structures.push({
-                                    id: id,
-                                    name: name,
-                                    structureType: structureType,
-                                    controllers: controllers
-                                });
-                            }
                         }
                     }
                 }
