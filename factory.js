@@ -47,171 +47,28 @@ var factory = {
         }
     },
     dynamicSpawn: function () {
-        for (var id in Game.rooms) {
-            var room = Game.rooms[id];
-            var numslots;
+        for(var i in Game.rooms){
+            var room = Game.rooms[i];
 
-            if (!Memory.rooms[room.name].factory) {
+            /***  LOCAL FACTORY DATA  ***/
+
+            if(!Memory.rooms[room.name].factory){
                 Memory.rooms[room.name].factory = {};
-                Memory.rooms[room.name].factory.created = [0, 0, 0, 0, 0];
-                Memory.rooms[room.name].factory.factoryQueue = [0, 0, 0, 0, 0];
-                Memory.rooms[room.name].factory.toCreate = [0, 0, 0, 0, 0];
-                Memory.rooms[room.name].factory.isLocked = false;
-                Memory.rooms[room.name].factory.haulersLock = false;
+                Memory.rooms[room.name].factory.processList = [];
+                Memory.rooms[room.name].factory.spawns = [];
+                Memory.rooms[room.name].factory.roles = {};
+                Memory.rooms[room.name].factory.roles.builders = 0;
+                Memory.rooms[room.name].factory.roles.haulers = 0;
+                Memory.rooms[room.name].factory.roles.harvesters = 0;
+                Memory.rooms[room.name].factory.roles.upgraders = 0;
             }
-            /*Num Spawns*/
-            var numSpawns = 0;
-            for (var i in Game.spawns) {   //Spawn num in room
-                var spawn = Game.spawns[i];
-                /*Fill toCreate list*/
+            else {
 
-                if (Memory.rooms[room.name].factory.isLocked == false) {
-                    var hauler = 0, upgrader = 0, harvester = 0, builder = 0, architect = 0;
-                    var numSlots = 0;
-                    for (var i in Memory.rooms[room.name].sources) {
-                        numSlots += Memory.rooms[room.name].sources[i].totalSlots;
-                        if (Memory.rooms[room.name].sources[i].totalSlots > 1) {
-                            hauler += 2;
-                        }
-                        else {
-                            hauler += 1;
-                        }
-                    }
-
-                    if (Memory.rooms[room.name].projects) {
-                        for (var k in Memory.rooms[room.name].projects) {
-                            builder += 3;
-                        }
-                    }
-
-                    harvester = numSlots;
-                    upgrader = parseInt(harvester / 4);
-                    architect = 1;
-
-                    Memory.rooms[room.name].factory.toCreate[0] = hauler;
-                    Memory.rooms[room.name].factory.toCreate[1] = upgrader;
-                    Memory.rooms[room.name].factory.toCreate[2] = harvester;
-                    Memory.rooms[room.name].factory.toCreate[3] = builder;
-                    Memory.rooms[room.name].factory.toCreate[4] = architect;
-                    Memory.rooms[room.name].factory.isLocked = true;
-                }
-                else {
-                    //FactoryQueue
-                    for (var i = 0; i < Memory.rooms[room.name].factory.toCreate.length; i++) {
-                        if (Memory.rooms[room.name].factory.created[i] < Memory.rooms[room.name].factory.toCreate[i]) {
-                            if (i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0)) { //Haulers
-                                var haulersToAdd = 0;
-                                for (var j in Memory.rooms[room.name].sources) {
-                                    var totalSlots = Memory.rooms[room.name].sources[j].totalSlots;
-                                    var slotsRemaining = Memory.rooms[room.name].sources[j].slotsRemaining;
-                                    if (Memory.rooms[room.name].sources[j].totalSlots > 1) {
-                                        if (parseInt((slotsRemaining * 100) / totalSlots) < 50) {
-                                            Memory.rooms[room.name].factory.factoryQueue[0] += 1;
-                                        }
-                                        else {
-                                            Memory.rooms[room.name].factory.factoryQueue[0] += 2;
-                                        }
-                                    }
-                                    else {
-                                        if (parseInt((slotsRemaining * 100) / totalSlots) >= 50) {
-                                            Memory.rooms[room.name].factory.factoryQueue[0] += 1;
-                                        }
-                                    }
-                                }
-                                Memory.rooms[room.name].factory.haulersLock = true;
-                            }
-                            if (i == 1) { //Upgraders
-                                var totalSlots = 0;
-                                var slotsRemaining = 0;
-                                for (var j in Memory.rooms[room.name].sources) {
-                                    totalSlots += Memory.rooms[room.name].sources[j].totalSlots;
-                                    slotsRemaining += Memory.rooms[room.name].sources[j].slotsRemaining;
-                                }
-                                var upgradersToAdd = parseInt(((100 - ((slotsRemaining * 100) / totalSlots)) * (Memory.rooms[room.name].factory.created[1])) / 100);
-                                Memory.rooms[room.name].factory.factoryQueue[1] = upgradersToAdd;
-                            }
-                            if (i == 2) { //Harvesters
-                                var harvestersToAdd = 0;
-                                for (var j in Memory.rooms[room.name].sources) {
-                                    if (Memory.rooms[room.name].sources[j].status == 'Active') {
-                                        if (Memory.rooms[room.name].factory.created[0] > 0) {
-                                            harvestersToAdd += Memory.rooms[room.name].sources[j].slotsRemaining;
-                                        }
-                                        else {
-                                            harvestersToAdd += 1;
-                                        }
-                                    }
-                                }
-                                Memory.rooms[room.name].factory.factoryQueue[2] = harvestersToAdd;
-                            }
-                            if (i == 3) { //Builders
-                                var buildersToAdd = 0;
-                                if (Memory.rooms[room.name].factory.created[4] == 1) {
-                                    for (var k in Memory.rooms[room.name].projects) {
-                                        buildersToAdd += 3;
-                                    }
-                                }
-                            }
-                            if (i == 4) { //Architects
-                                if(Memory.rooms[room.name].factory.created[0] > 0 && Memory.rooms[room.name].factory.created[4] < 1){
-                                    Memory.rooms[room.name].factory.toCreate[4] = 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                /*Process queue*/
-                for (var x in Memory.rooms[room.name].factory.factoryQueue) {
-                    if (!(Memory.rooms[room.name].factory.factoryQueue[x] > 0)) {
-                        var role;
-                        if (x == 0) {
-                            role = 'hauler';
-                        }
-                        if (x == 1) {
-                            role = 'upgrader';
-
-                        }
-                        if (x == 2) {
-                            role = 'harvester';
-                        }
-                        if (x == 3) {
-                            role = 'builder';
-                        }
-                        if (x == 4) {
-                            role = 'architect';
-
-                        }
-                    }
-
-                    var creepToProcess = factory.creeps(role);
-                    Memory.rooms[room.name].factory.queue = creepToProcess;
-                    if(spawn.canCreateCreep(creepToProcess.body) == OK && spawn.spawning == null){
-                        spawn.createCreep(creepToProcess.body,null,{role: role});
-                    }
-                }
             }
+
         }
-    },
-    recount: function () {
-        for(var r in Game.rooms){
-            var room = Game.rooms[r];
-            for(var i in Memory.rooms[room.name].factory.created){
-                Memory.rooms[room.name].factory.created[i] = 0;
-            }
-            var roles = ['hauler','upgrader','harvester','builder','architect'];
-            var initCreated = Memory.rooms[room.name].factory.created;
-            for(var i in roles){
-                for(var j in Memory.creeps){
-                    if(Memory.creeps[j].role == roles[i]){
-                        Memory.rooms[room.name].factory.created[i] += 1;
-                    }
-                }
-            }
-            for(var i in initCreated){
-                Memory.rooms[room.name].factory.factoryQueue[i] = Memory.rooms[room.name].factory.factoryQueue[i] - (Memory.rooms[room.name].factory.created[i] - initCreated[i]);
-            }
-        }
+
+
     },
     creeps: function (role) {
 
