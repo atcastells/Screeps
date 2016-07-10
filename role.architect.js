@@ -26,17 +26,9 @@ var roleArchitect = {
                         route.buildingPriority = false;
                         route.buildFinished = false;
                         route.repair = true;
+                        route.status = 'null';
+                        route.project = false;
                         Memory.rooms[room.name].architectLog[0].push(route);
-                    }
-                }
-                
-                /*Designate construction points*/
-                for(var j in Memory.rooms[room.name].architectLog[0]){
-                    console.log(Memory.rooms[room.name].architectLog[0][j].path.length)
-                    for(var k in Memory.rooms[room.name].architectLog[0][j].path){
-
-                        var pathRoute =  Memory.rooms[room.name].architectLog[0][j].path[k];
-                        Game.rooms[room.name].createConstructionSite(pathRoute.x,pathRoute.y, STRUCTURE_ROAD);
                     }
                 }
 
@@ -52,6 +44,24 @@ var roleArchitect = {
                 }
                 Memory.rooms[room.name].architectLog[0][position].buildingPriority = true;
 
+
+                /*Designate construction points*/
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                    if(Memory.rooms[room.name].architectLog[0][j].buildingPriority == true && Memory.rooms[room.name].architectLog[0][j].process == 'null'){
+                        var constuctionPoints = [];
+                        for(var k in Memory.rooms[room.name].architectLog[0][j].path){
+                            constuctionPoints.push(Memory.rooms[room.name].architectLog[0][j].path[k]);
+
+                            //Game.rooms[room.name].createConstructionSite(pathRoute.x,pathRoute.y, STRUCTURE_ROAD);
+                        }
+                        Memory.rooms[room.name].architectLog[0][j].constructionPoints = constuctionPoints;
+                        Memory.rooms[room.name].architectLog[0][j].process = 'waiting';
+                        Memory.rooms[room.name].architectLog[0][j].project = true;
+                    }
+
+                }
+
+
             }
             else{}
 
@@ -62,8 +72,15 @@ var roleArchitect = {
             }
             else {
                 //Code for creating and maintaining projects
-
-                
+                for(var j in Memory.rooms[room.name].architectLog[0]){
+                   if(Memory.rooms[room.name].architectLog[0][j].process == 'waiting' && Memory.rooms[room.name].architectLog[0][j].project == true){
+                       var project = {};
+                       project.process = 0+'%';
+                       project.constuctionPoints = Memory.rooms[room.name].architectLog[0][j].constructionPoints;
+                       Memory.rooms[room.name].architectLog[0][j].buildingPriority.push(project);
+                       Memory.rooms[room.name].architectLog[0][j].process = 'working';
+                   }
+                }
             }
         }
     }
