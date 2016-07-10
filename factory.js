@@ -48,16 +48,14 @@ var factory = {
     },
     dynamicSpawn: function () {
         for (var id in Game.rooms) {
-            
             var room = Game.rooms[id];
             var numslots;
-            var numSources = Memory.rooms[room.name].sources.length;
 
             if(!Memory.rooms[room.name].factory){
                 Memory.rooms[room.name].factory = {};
-                Memory.rooms[room.name].factory.created = [0,0,0,0,0,0];
-                Memory.rooms[room.name].factory.factoryQueue = [0,0,0,0,0,0];
-                Memory.rooms[room.name].factory.toCreate = [0,0,0,0,0,0];
+                Memory.rooms[room.name].factory.created = [0,0,0,0,0];
+                Memory.rooms[room.name].factory.factoryQueue = [0,0,0,0,0];
+                Memory.rooms[room.name].factory.toCreate = [0,0,0,0,0];
                 Memory.rooms[room.name].factory.isLocked = false;
                 Memory.rooms[room.name].factory.haulersLock = false;
             }
@@ -72,7 +70,7 @@ var factory = {
             /*Fill toCreate list*/
 
             if(Memory.rooms[room.name].factory.isLocked == false){
-                var hauler = 0, upgrader = 0, harvester = 0, builder = 0, architect = 0, organizer = 0;
+                var hauler = 0, upgrader = 0, harvester = 0, builder = 0, architect = 0;
 
                 for (var i in Memory.rooms[room.name].sources){
                     numslots +=    Memory.rooms[room.name].sources[i].totalSlots;
@@ -87,14 +85,13 @@ var factory = {
                 harvester = numslots;
                 upgrader = harvester/4;
                 builder = harvester/2;
-                architect, organizer = 1;
+                architect = 1;
 
                 Memory.rooms[room.name].factory.toCreate[0] = hauler;
                 Memory.rooms[room.name].factory.toCreate[1] = upgrader;
                 Memory.rooms[room.name].factory.toCreate[2] = harvester;
                 Memory.rooms[room.name].factory.toCreate[3] = builder;
                 Memory.rooms[room.name].factory.toCreate[4] = architect;
-                Memory.rooms[room.name].factory.toCreate[5] = organizer;
                 Memory.rooms[room.name].factory.isLocked = true;
             }
             else {
@@ -152,9 +149,6 @@ var factory = {
                         if(i == 4){ //Architects
 
                         }
-                        if(i == 5){ //Organizers
-
-                        }
                     }
                 }
             }
@@ -170,7 +164,7 @@ var factory = {
         }
     },
     creeps: function (role) {
-        var roles = ['hauler','upgrader','harvester','builder','architect','organizer'];
+        var roles = ['hauler','upgrader','harvester','builder','architect'];
         var bodyHauler = ['CARRY','MOVE','CARRY'];
         var bodyUpgrader = ['CARRY','MOVE','WORK'];
         var bodyHarvester = ['WORK','MOVE'];
