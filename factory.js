@@ -50,6 +50,8 @@ var factory = {
         for(var i in Game.rooms){
             var room = Game.rooms[i];
 
+
+
             /***  LOCAL FACTORY DATA  ***/
 
             if(!Memory.rooms[room.name].factory){
@@ -61,8 +63,18 @@ var factory = {
                 Memory.rooms[room.name].factory.roles.haulers = 0;
                 Memory.rooms[room.name].factory.roles.harvesters = 0;
                 Memory.rooms[room.name].factory.roles.upgraders = 0;
+                Memory.rooms[room.name].factory.roles.architects = 0;
+
             }
             else {
+                for(var j in Game.spawns){
+                    if(Memory.rooms[room.name].factory.spawns.indexOf(Game.spawns[j].id) == -1){
+                        Memory.rooms[room.name].factory.spawns.push(Game.spawns[j].id)
+                    }
+                    else {
+                        break;
+                    }
+                }
 
             }
 
