@@ -13,17 +13,24 @@ var administration = {
             }
             else {
                 for(var k in Game.structures){
-                    var structureType = Game.structures[k].structureType;
-                    var id = Game.structures[k].id;
-                    var name = Game.structures[k].name;
+                    var structure = Game.getObjectById(k);
+                    var structureType = structure.structureType;
+                    var id = structure.id;
+                    var exists = false;
                     if(Memory.rooms[room.name].structures.length == 0){
+                        console.log('first structure');
                         Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
                     else {
-                        for(var l in Memory.rooms[room.name].structures){
-                            if(Memory.rooms[room.name].structures[l].indexOf(id) == -1){
-                                Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
+                        for(var l = 0;l < Memory.rooms[room.name].structures.length ;l++){
+                            if(Memory.rooms[room.name].structures.id === id){
+                                console.log(structureType+' '+exists)
+                                exists = true;
+                                break;
                             }
+                        }
+                        if(!exists){
+                            Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                         }
                     }
                 }
