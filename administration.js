@@ -132,4 +132,4 @@ var administration = {
     }
 }
 
-modules.exports = administration;
+module.exports = administration;
