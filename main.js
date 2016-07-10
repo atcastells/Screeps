@@ -27,8 +27,10 @@ module.exports.loop = function () {
     }
 
     /*Recount creeps*/
-    if(Memory.init.memoryReady == true){
-        factory.recount();
+    if(Memory.init ){
+        if(Memory.init.memoryReady){
+            factory.recount();
+        }
     }
 
     /*Create explorer*/
@@ -41,7 +43,7 @@ module.exports.loop = function () {
         Game.spawns.Spawn1.createCreep([MOVE], 'explorer1', {role: 'explorer', action: 'wander'});
         Memory.init.explorer = true;
     }
-    
+
     /*Administrate Memory*/
 
     for(var i in Game.rooms){

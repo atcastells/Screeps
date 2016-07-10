@@ -194,17 +194,20 @@ var factory = {
         }
     },
     recount: function () {
-        var roles = ['hauler','upgrader','harvester','builder','architect'];
-        var initCreated = Memory.rooms[room.name].factory.created;
-        for(var i in roles){
-            for(var j in Memory.creeps){
-                if(Memory.creeps[j].role == roles[i]){
-                    Memory.rooms[room.name].factory.created[i] += 1;
+        for(var r in Game.rooms){
+            var room = Game.rooms(room);
+            var roles = ['hauler','upgrader','harvester','builder','architect'];
+            var initCreated = Memory.rooms[room.name].factory.created;
+            for(var i in roles){
+                for(var j in Memory.creeps){
+                    if(Memory.creeps[j].role == roles[i]){
+                        Memory.rooms[room.name].factory.created[i] += 1;
+                    }
                 }
             }
-        }
-        for(var i in initCreated){
-            Memory.rooms[room.name].factory.factoryQueue[i] += -Memory.rooms[room.name].factory.created[i] - initCreated[i];
+            for(var i in initCreated){
+                Memory.rooms[room.name].factory.factoryQueue[i] += -Memory.rooms[room.name].factory.created[i] - initCreated[i];
+            }
         }
     },
     creeps: function (role) {
