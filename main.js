@@ -25,6 +25,18 @@ module.exports.loop = function () {
         }
     }
 
+    /*Create explorer*/
+    if(!Memory.init){
+        Memory.init = {};
+        Memory.init.explorer = false;
+    }
+    if(Memory.init.explorer == false){
+        Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: 'explorer', action: 'wander'});
+        Memory.init.explorer = true;
+    }
+
+
+
     /*Administrate Memory*/
     administration.run();
 

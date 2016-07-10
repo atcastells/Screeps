@@ -5,6 +5,12 @@ var administration = {
     run: function () {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
+            for(var c in Game.creeps){
+                if(Game.creeps[c].room.id == room){
+                    console.log('yes');
+                }
+            }
+            var creep = Game.getObjectById(c);
             if (!Memory.rooms[room.name]) {     //Memory room
                 Memory.rooms[room.name] = {};
             }
@@ -18,13 +24,11 @@ var administration = {
                     var id = structure.id;
                     var exists = false;
                     if(Memory.rooms[room.name].structures.length == 0){
-                        console.log('first structure');
                         Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
                     else {
                         for(var l = 0;l < Memory.rooms[room.name].structures.length ;l++){
-                            if(Memory.rooms[room.name].structures.id === id){
-                                console.log(structureType+' '+exists)
+                            if(Memory.rooms[room.name].structures[l].id === id){
                                 exists = true;
                                 break;
                             }
@@ -35,7 +39,6 @@ var administration = {
                     }
                 }
                 if (!Memory.rooms[room.name].architectLog) {
-                    var creep = Game.creeps[0];
                     Memory.rooms[room.name].architectLog = [];  //[room.name].architectLog
                     var resourceRoutes = [];
                     var haulerQueues = [];
