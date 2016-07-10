@@ -45,7 +45,6 @@ module.exports.loop = function () {
         for(var c in Game.creeps){
             if(Game.creeps[c].room.name == room.name && Game.creeps[c].name == 'explorer1'){
                 creep = Game.creeps[c];
-                console.log(creep)
                 administration.run(creep);
                 Memory.init.memoryReady = true;
             }

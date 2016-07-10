@@ -71,9 +71,9 @@ var factory = {
 
             if(Memory.rooms[room.name].factory.isLocked == false){
                 var hauler = 0, upgrader = 0, harvester = 0, builder = 0, architect = 0;
-
+                var numSlots = 0;
                 for (var i in Memory.rooms[room.name].sources){
-                    numslots +=    Memory.rooms[room.name].sources[i].totalSlots;
+                    numSlots += Memory.rooms[room.name].sources[i].totalSlots;
                     if(Memory.rooms[room.name].sources[i].totalSlots > 1){
                         hauler += 2;
                     }
@@ -82,7 +82,7 @@ var factory = {
                     }
                 }
 
-                harvester = numslots;
+                harvester = numSlots;
                 upgrader = harvester/4;
                 builder = harvester/2;
                 architect = 1;
@@ -144,7 +144,7 @@ var factory = {
                             Memory.rooms[room.name].factory.factoryQueue[2] = harvestersToAdd;
                         }
                         if(i == 3){ //Builders
-                            
+
                         }
                         if(i == 4){ //Architects
 

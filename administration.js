@@ -44,7 +44,6 @@ var administration = {
                 Memory.rooms[room.name].sources = [];
                 var resources = room.find(FIND_SOURCES);
                 for (var ids in resources) {
-                    console.log('test')
                     var source = {};
                     var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                     source.id = resources[ids].id;
