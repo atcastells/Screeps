@@ -98,11 +98,11 @@ var factory = {
                 //FactoryQueue
                 for (var i = 0; i <  Memory.rooms[room.name].factory.toCreate.length; i++){
                     if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.toCreate[i]){
-                        if(i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0 || Memory.rooms[room.name].factory.toCreate[2] > 0)){ //Haulers
-                            Memory.rooms[room.name].factory.factoryQueue[0] = 0;    //Reset hauler queue to recheck
+                        if(i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0)){ //Haulers
+                            var haulersToAdd = 0;
                             for(var j in Memory.rooms[room.name].sources){
                                 var totalSlots = Memory.rooms[room.name].sources[j].totalSlots;
-                                var slotsRemaining = totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining;
+                                var slotsRemaining = Memory.rooms[room.name].sources[j].slotsRemaining;
                                 if(Memory.rooms[room.name].sources[j].totalSlots > 1){
                                     if(parseInt((slotsRemaining * 100)/totalSlots) < 50){
                                         Memory.rooms[room.name].factory.factoryQueue[0] += 1;
