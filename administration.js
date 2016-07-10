@@ -52,7 +52,7 @@ var administration = {
                             var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                             source.id = resources[ids].id;
                             var resourceObject = Game.getObjectById(resources[ids].id);
-                            var resourceArea = creep.rooms[room.name].lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
+                            var resourceArea = creep.room[room.name].lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
                             var freeSlots = 9;
                             for (var i = 1; i < resourceArea.length; i++) {
                                 if (resourceArea[i].terrain == 'wall') {
