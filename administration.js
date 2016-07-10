@@ -69,6 +69,16 @@ var administration = {
                     }
                     Memory.rooms[room.name].sources[0].status = 'Active';  //Activate first source
                 }
+                //Activate sources
+                var activateNext = false;
+                for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                    if (Memory.rooms[room.name].sources[j].status == 'Active' && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
+                        activateNext = true;
+                    }
+                    if (Memory.rooms[room.name].sources[j].status == 'Inactive' && activateNext == true) {
+                        Memory.rooms[room.name].sources[j].status = 'Active';
+                    }
+                }
                 // List creeps by role
                 for (var cid in Memory.creeps) {
                     if (!Memory.roles) {
@@ -76,7 +86,6 @@ var administration = {
                         Memory.roles.builders = {};
                         Memory.roles.harvesters = {};
                         Memory.roles.haulers = {};
-                        Memory.roles.organizers = {};
                         Memory.roles.upgraders = {};
                         for (var i in Memory.roles) {
                             var roleNames = i.substr(0, (i.length - 1));
@@ -99,30 +108,22 @@ var administration = {
                             }
                         }
                     }
+                    //Assign source to harvester
                 }
-                //Activate sources
-                var activateNext = false;
-                for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                    if (Memory.rooms[room.name].sources[j].status == 'Active' && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
-                        activateNext = true;
-                    }
-                    if (Memory.rooms[room.name].sources[j].status == 'Inactive' && activateNext == true) {
-                        Memory.rooms[room.name].sources[j].status = 'Active';
-                    }
-                }
-                //Assign source to harvester
-                if (Memory.creeps[cid].role == 'harvester') {
-                    if (!Memory.creeps[cid].workLog) {
-                        Memory.creeps[cid].workLog = {};
-                    }
-                    else {
-                        /*Looking for source*/
-                        for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                            if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == 'Active') {
-                                Memory.rooms[room.name].sources[j].slotsRemaining--;
-                                Memory.creeps[cid].workLog.energyCollected = 0;
-                                Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
-                                break;
+                for (var cid in Memory.creeps) {
+                    if (Memory.creeps[cid].role == 'harvester') {
+                        if (!Memory.creeps[cid].workLog) {
+                            Memory.creeps[cid].workLog = {};
+                        }
+                        else {
+                            /*Looking for source*/
+                            for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                                if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == 'Active') {
+                                    Memory.rooms[room.name].sources[j].slotsRemaining--;
+                                    Memory.creeps[cid].workLog.energyCollected = 0;
+                                    Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
+                                    break;
+                                }
                             }
                         }
                     }
