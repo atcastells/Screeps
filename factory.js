@@ -59,6 +59,7 @@ var factory = {
                 Memory.rooms[room.name].factory.factoryQueue = [0,0,0,0,0,0];
                 Memory.rooms[room.name].factory.toCreate = [0,0,0,0,0,0];
                 Memory.rooms[room.name].factory.isLocked = false;
+                Memory.rooms[room.name].factory.haulersLock = false;
             }
             /*Num Spawns*/
             var numSpawns = 0;
@@ -74,8 +75,8 @@ var factory = {
                 var hauler = 0, upgrader = 0, harvester = 0, builder = 0, architect = 0, organizer = 0;
 
                 for (var i in Memory.rooms[room.name].sources){
-                    numslots +=    Memory.rooms[room.name].sources[i].slots;
-                    if(Memory.rooms[room.name].sources[i].slots > 1){
+                    numslots +=    Memory.rooms[room.name].sources[i].totalSlots;
+                    if(Memory.rooms[room.name].sources[i].totalSlots > 1){
                         hauler += 2;
                     }
                     else {
@@ -100,11 +101,36 @@ var factory = {
                 //FactoryQueue
                 for (var i = 0; i <  Memory.rooms[room.name].factory.toCreate.length; i++){
                     if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.toCreate[i]){
-                        if(i == 0){ //Haulers
-
+                        if(i == 0 && !Memory.rooms[room.name].factory.haulersLock){ //Haulers
+                            Memory.rooms[room.name].factory.factoryQueue[0] = 0;    //Reset hauler queue to recheck
+                            for(var j in Memory.rooms[room.name].sources){
+                                var totalSlots = Memory.rooms[room.name].sources[j].totalSlots;
+                                var slotsRemaining = totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining;
+                                if(Memory.rooms[room.name].sources[j].totalSlots > 1){
+                                    if(parseInt((slotsRemaining * 100)/totalSlots) < 50){
+                                        Memory.rooms[room.name].factory.factoryQueue[0] += 1;
+                                    }
+                                    else {
+                                        Memory.rooms[room.name].factory.factoryQueue[0] += 2;
+                                    }
+                                }
+                                else {
+                                    if(parseInt((slotsRemaining * 100)/totalSlots) >= 50){
+                                        Memory.rooms[room.name].factory.factoryQueue[0] += 1;
+                                    }
+                                }
+                            }
+                            Memory.rooms[room.name].factory.haulersLock = true;
                         }
                         if(i == 1){ //Upgraders
-
+                            var totalSlots;
+                            var slotsRemaining;
+                            for(var j in Memory.rooms[room.name].sources){
+                                totalSlots += Memory.rooms[room.name].sources[j].totalSlots;
+                                slotsRemaining += totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining;
+                            }
+                            var upgradersToAdd = parseInt(((100-((slotsRemaining*100)/totalSlots))*(Memory.rooms[room.name].factory.toCreate[1]))/100);
+                            Memory.rooms[room.name].factory.factoryQueue[1] = upgradersToAdd;
                         }
                         if(i == 2){ //Harvesters
 
