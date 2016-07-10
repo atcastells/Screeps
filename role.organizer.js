@@ -3,6 +3,7 @@
              */
             var roleOrganizer = {
                 run: function (creep) {
+                    var stateEnum = Object.freeze({'Active':true,'Inactive':false});
                     for (var id in Game.rooms) {
                         var room = Game.rooms[id];
                         if (!Memory.rooms[room.name]) {
@@ -61,6 +62,7 @@
                                         source.totalSlots = freeSlots;
                                         source.slotsRemaining = freeSlots;
                                         source.klair = klair;
+                                        source.status = stateEnum.Inactive;
                                         Memory.rooms[room.name].sources.push(source);
                                         for (var cid in Memory.creeps) {
                                             if(!Memory.roles){
@@ -91,13 +93,24 @@
                                                     }
                                                 }
                                             }
+                                            //Activate sources
+                                            var activateNext = false;
+                                            for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                                                if( Memory.rooms[room.name].sources[j].status == stateEnum.Active && Memory.rooms[room.name].sources[j].slotsRemaining == 0){
+                                                    activateNext = true;
+                                                }
+                                                if(Memory.rooms[room.name].sources[j].status == stateEnum.Inactive && activateNext == true){
+                                                    Memory.rooms[room.name].sources[j].status == stateEnum.Active
+                                                }
+                                            }
+
                                             //Assign source to harvester
                                             if (Memory.creeps[cid].role == 'harvester') {
                                                 if (!Memory.creeps[cid].workLog) {
                                                     Memory.creeps[cid].workLog = {};
                                                     /*Looking for source*/
                                                     for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false) {
+                                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == stateEnum.Active) {
                                                             Memory.rooms[room.name].sources[j].slotsRemaining--;
                                                             Memory.creeps[cid].workLog.energyCollected = 0;
                                                             Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
