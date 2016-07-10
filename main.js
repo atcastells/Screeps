@@ -1,7 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleHauler = require('role.hauler');
 var roleUpgrader = require('role.upgrader');
-var roleOrganizer = require('role.organizer');
+var roleArchitect = require('role.architect');
 var roleBuilder = require('role.builder');
 var administration = require('administration');
 var factory = require('factory');
@@ -24,13 +24,13 @@ module.exports.loop = function () {
             delete Memory.creeps[name]
         }
     }
-    
+
     /*Administrate Memory*/
     administration.run();
-    
+
     /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters
     //factory.normalSpawn(1, 4, 4, 2, 5);
-    
+
     /*Dynamic Spawn*/
     factory.dynamicSpawn();
     /*Creep Iteration*/
