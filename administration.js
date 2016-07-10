@@ -48,8 +48,6 @@ var administration = {
                     /*Log sources*/
             if (!Memory.rooms[room.name].sources) {
                 Memory.rooms[room.name].sources = [];
-            }
-            else {
                 var resources = room.find(FIND_SOURCES);
                 for (var ids in resources) {
                     var source = {};
