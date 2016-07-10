@@ -5,12 +5,12 @@ var administration = {
     run: function () {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
+            var creep;
             for(var c in Game.creeps){
-                if(Game.creeps[c].room.id == room){
-                    console.log('yes');
+                if(Game.creeps[c].room.name == room.name){
+                    creep = Game.getObjectById(c);
                 }
             }
-            var creep = Game.getObjectById(c);
             if (!Memory.rooms[room.name]) {     //Memory room
                 Memory.rooms[room.name] = {};
             }
