@@ -185,15 +185,35 @@ var factory = {
                     }
 
                     var creepToProcess = factory.creeps(role);
-                    Memory.rooms[room.name].factory.queue = creepToProcess
+                    Memory.rooms[room.name].factory.queue = creepToProcess;
                     if(spawn.canCreateCreep(creepToProcess.body) == OK && spawn.spawning == null){
                         spawn.createCreep(creepToProcess.body,null,{role: role});
-                        Memory.rooms[room.name].factory.factoryQueue[x] += -1;
-                        Memory.rooms[room.name].factory.created[x] += +1;
+                        factory.recount(role,factoryQueue,created);
                     }
                 }
             }
         }
+    },
+    recount: function (role,queue,created) {
+        var roles = ['hauler','upgrader','harvester','builder','architect'];
+        var hauler = 0;
+        var upgrader = 1;
+        var harvester = 2;
+        var builder = 3;
+        var architect = 4;
+        var roleSelected = roles.indexOf(role);
+        var queueNum = queue[roleSelected];
+        var createdNum = created[roleSelected];
+        var diff;
+        for(var i in Memory.creeps()){
+            if(Memory.creeps[i].role == roles[roleSelected]){
+                created += 1;
+            }
+        }
+        diff = created - createdNum;
+        queueNum += -diff;
+        queue[roleSelected]  = queueNum;
+        created[roleSelected] = created;
     },
     creeps: function (role) {
 
