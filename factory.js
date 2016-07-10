@@ -101,7 +101,7 @@ var factory = {
                 //FactoryQueue
                 for (var i = 0; i <  Memory.rooms[room.name].factory.toCreate.length; i++){
                     if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.toCreate[i]){
-                        if(i == 0 && !Memory.rooms[room.name].factory.haulersLock){ //Haulers
+                        if(i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0 || Memory.rooms[room.name].factory.toCreate[2] > 0)){ //Haulers
                             Memory.rooms[room.name].factory.factoryQueue[0] = 0;    //Reset hauler queue to recheck
                             for(var j in Memory.rooms[room.name].sources){
                                 var totalSlots = Memory.rooms[room.name].sources[j].totalSlots;
@@ -133,10 +133,21 @@ var factory = {
                             Memory.rooms[room.name].factory.factoryQueue[1] = upgradersToAdd;
                         }
                         if(i == 2){ //Harvesters
-
+                            var harvestersToAdd = 0;
+                            for(var j in Memory.rooms[room.name].sources){
+                                if(Memory.rooms[room.name].sources[j].status == 'Active'){
+                                    if(Memory.rooms[room.name].factory.created[1] > 0){
+                                        harvestersToAdd += Memory.rooms[room.name].sources[j].slotsRemaining;
+                                    }
+                                    else {
+                                        harvestersToAdd += 1;
+                                    }
+                                }
+                            }
+                            Memory.rooms[room.name].factory.factoryQueue[2] = harvestersToAdd;
                         }
                         if(i == 3){ //Builders
-
+                            
                         }
                         if(i == 4){ //Architects
 
