@@ -5,38 +5,32 @@ var administration = {
     run: function () {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
-            if (!Memory.rooms[room.name]) {
-                Memory.rooms[room.name] = {};   //Memory Room Name
+            if (!Memory.rooms[room.name]) {     //Memory room
+                Memory.rooms[room.name] = {};
+            }
+            if(!Memory.rooms.structures){       //Memory structure
+                Memory.rooms.structures = [];
             }
             else {
-                var buildings = room.find(FIND_MY_STRUCTURES);
-                var controllers = room.find(FIND_STRUCTURES, {
-                    filter: {structureType: STRUCTURE_CONTROLLER}
-                });
-                if (!Memory.rooms[room.name].structures) {
-                    Memory.rooms[room.name].structures = [];    //[room.name].structures
-                }
-                else {
-                    for (var ids in buildings) {
-                        var structureType = buildings[ids].structureType;
-                        var id = buildings[ids].id;
-                        var name = buildings[ids].name;
-                        if (!(buildings[ids].structureType == 'spawn' || buildings[ids].structureType == 'extension' )) {
-                            Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
-                        }
-                        else {
-                            if (buildings[ids].structureType == 'spawn') {
-                                var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
-                                Memory.rooms[room.name].structures.push({
-                                    id: id,
-                                    name: name,
-                                    structureType: structureType,
-                                    controllers: controllers
-                                });
-                            }
-                        }
-
+                for(var k in Game.structures){
+                    var structureType = Game.structures[k].structureType;
+                    var id = Game.structures[k].id;
+                    var name = Game.structures[k].name;
+                    if (!(structureType == 'spawn' || structureType == 'extension' )) {
+                        Memory.rooms[room.name].structures.push({id: id, structureType: structureType});
                     }
+                    else {
+                        if (structureType == 'spawn') {
+                            var controllers = buildings[ids].pos.findInRange(FIND_MY_STRUCTURES, 4, {filter: {structureType: STRUCTURE_EXTENSION}}).length;
+                            Memory.rooms[room.name].structures.push({
+                                id: id,
+                                name: name,
+                                structureType: structureType,
+                                controllers: controllers
+                            });
+                        }
+                    }
+
                 }
                 if (!Memory.rooms[room.name].architectLog) {
                     var creep = Game.creeps[0];
