@@ -83,8 +83,8 @@ var factory = {
                 }
 
                 harvester = numSlots;
-                upgrader = harvester/4;
-                builder = harvester/2;
+                upgrader = parseInt(harvester/4);
+                builder = parseInt(harvester/2);
                 architect = 1;
 
                 Memory.rooms[room.name].factory.toCreate[0] = hauler;
