@@ -54,7 +54,7 @@ var factory = {
             if (!Memory.rooms[room.name].factory) {
                 Memory.rooms[room.name].factory = {};
                 Memory.rooms[room.name].factory.created = [0, 0, 0, 0, 0];
-                Memory.rooms[room.name].factory.factoryQueue = [0, 0, 0, 0, 1];
+                Memory.rooms[room.name].factory.factoryQueue = [0, 0, 0, 0, 0];
                 Memory.rooms[room.name].factory.toCreate = [0, 0, 0, 0, 1];
                 Memory.rooms[room.name].factory.isLocked = false;
                 Memory.rooms[room.name].factory.haulersLock = false;
@@ -62,7 +62,7 @@ var factory = {
             /*Num Spawns*/
             var numSpawns = 0;
             for (var i in Game.spawns) {   //Spawn num in room
-                    var spawn = Game.spawns[i];
+                var spawn = Game.spawns[i];
                 /*Fill toCreate list*/
 
                 if (Memory.rooms[room.name].factory.isLocked == false) {
@@ -98,7 +98,7 @@ var factory = {
                 else {
                     //FactoryQueue
                     for (var i = 0; i < Memory.rooms[room.name].factory.toCreate.length; i++) {
-                        if (Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.created[i]) {
+                        if (Memory.rooms[room.name].factory.created[i] < Memory.rooms[room.name].factory.toCreate[i]) {
                             if (i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0)) { //Haulers
                                 var haulersToAdd = 0;
                                 for (var j in Memory.rooms[room.name].sources) {
@@ -153,7 +153,9 @@ var factory = {
                                 }
                             }
                             if (i == 4) { //Architects
-                                //HardCoded
+                                if(Memory.rooms[room.name].factory.created[0] > 0 && Memory.rooms[room.name].factory.created[4] < 1){
+                                    Memory.rooms[room.name].factory.toCreate[4] = 1;
+                                }
                             }
                         }
                     }
@@ -164,7 +166,7 @@ var factory = {
                     if (!(Memory.rooms[room.name].factory.factoryQueue[x] == 0)) {
                         var role;
                         if (x == 0) {
-                             role = 'hauler';
+                            role = 'hauler';
                         }
                         if (x == 1) {
                             role = 'upgrader';
@@ -178,13 +180,13 @@ var factory = {
                         }
                         if (x == 4) {
                             role = 'architect';
-                            
+
                         }
                     }
                     var creepToProcess = factory.creeps(role);
-
-                    if(spawn.canCreateCreep(creepToProcess) == OK){
-                        spawn.createCreep(creepToProcess);
+                    Memory.rooms[room.name].factory.queue = creepToProcess
+                    if(spawn.canCreateCreep(creepToProcess.body) == OK){
+                        spawn.createCreep(creepToProcess.body,null,{role: role});
                         Memory.rooms[room.name].factory.factoryQueue[x] += -1;
                         Memory.rooms[room.name].factory.created[x] += +1;
                     }
@@ -194,11 +196,11 @@ var factory = {
     },
     creeps: function (role) {
         var roles = ['hauler','upgrader','harvester','builder','architect'];
-        var bodyHauler = ['CARRY','MOVE','CARRY'];
-        var bodyUpgrader = ['CARRY','MOVE','WORK'];
-        var bodyHarvester = ['WORK','MOVE'];
-        var bodyBuilder = ['CARRY','MOVE','WORK'];
-        var bodyMisc = ['MOVE'];
+        var bodyHauler = [CARRY,MOVE,CARRY];
+        var bodyUpgrader = [CARRY,MOVE,WORK];
+        var bodyHarvester = [WORK,MOVE];
+        var bodyBuilder = [CARRY,MOVE,WORK];
+        var bodyMisc = [MOVE];
         var creep = {};
         var selectedRole = roles.indexOf(role);
         if(roles[selectedRole] == 'hauler'){
