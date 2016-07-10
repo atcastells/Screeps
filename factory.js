@@ -195,7 +195,7 @@ var factory = {
     },
     recount: function () {
         for(var r in Game.rooms){
-            var room = Game.rooms(room);
+            var room = Game.rooms[room];
             var roles = ['hauler','upgrader','harvester','builder','architect'];
             var initCreated = Memory.rooms[room.name].factory.created;
             for(var i in roles){
