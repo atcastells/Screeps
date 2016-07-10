@@ -26,6 +26,11 @@ module.exports.loop = function () {
         }
     }
 
+    /*Recount creeps*/
+    if(Memory.init.memoryReady == true){
+        factory.recount();
+    }
+
     /*Create explorer*/
     if(!Memory.init){
         Memory.init = {};
