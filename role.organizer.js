@@ -3,7 +3,6 @@
              */
             var roleOrganizer = {
                 run: function (creep) {
-                    var stateEnum = Object.freeze({'Active': true, 'Inactive': false});
                     for (var id in Game.rooms) {
                         var room = Game.rooms[id];
                         if (!Memory.rooms[room.name]) {
@@ -63,11 +62,11 @@
                                         source.totalSlots = freeSlots;
                                         source.slotsRemaining = freeSlots;
                                         source.klair = klair;
-                                        source.status = stateEnum.Inactive;
+                                        source.status = 'Inactive';
                                         Memory.rooms[room.name].sources.push(source);
                                     }
                                 }
-                                Memory.rooms[room.name].sources[0].status = stateEnum.Active;  //Activate first source
+                                Memory.rooms[room.name].sources[0].status = 'Active';  //Activate first source
                             }
                             // List creeps by role
                             for (var cid in Memory.creeps) {
@@ -103,11 +102,11 @@
                             //Activate sources
                             var activateNext = false;
                             for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                if (Memory.rooms[room.name].sources[j].status == stateEnum.Active && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
+                                if (Memory.rooms[room.name].sources[j].status == 'Active' && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
                                     activateNext = true;
                                 }
-                                if (Memory.rooms[room.name].sources[j].status == stateEnum.Inactive && activateNext == true) {
-                                    Memory.rooms[room.name].sources[j].status = stateEnum.Active;
+                                if (Memory.rooms[room.name].sources[j].status == 'Inactive' && activateNext == true) {
+                                    Memory.rooms[room.name].sources[j].status = 'Active';
                                 }
                             }
                             //Assign source to harvester
@@ -118,7 +117,7 @@
                                 else {
                                     /*Looking for source*/
                                     for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == stateEnum.Active) {
+                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == 'Active') {
                                             Memory.rooms[room.name].sources[j].slotsRemaining--;
                                             Memory.creeps[cid].workLog.energyCollected = 0;
                                             Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
