@@ -2,15 +2,9 @@
  * Created by acastells on 10/07/2016.
  */
 var administration = {
-    run: function () {
+    run: function (creep) {
         for (var id in Game.rooms) {
             var room = Game.rooms[id];
-            var creep;
-            for(var c in Game.creeps){
-                if(Game.creeps[c].room.name == room.name){
-                    creep = c;
-                }
-            }
             if (!Memory.rooms[room.name]) {     //Memory room
                 Memory.rooms[room.name] = {};
             }
@@ -55,7 +49,7 @@ var administration = {
                     var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                     source.id = resources[ids].id;
                     var resourceObject = Game.getObjectById(resources[ids].id);
-                    var resourceArea = Game.creeps[creep].room.lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
+                    var resourceArea = Game.creeps[creep.name].room.lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
                     var freeSlots = 9;
                     for (var i = 1; i < resourceArea.length; i++) {
                         if (resourceArea[i].terrain == 'wall') {
