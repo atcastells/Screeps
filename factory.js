@@ -97,7 +97,29 @@ var factory = {
                 Memory.rooms[room.name].factory.isLocked = true;
             }
             else {
+                //FactoryQueue
+                for (var i = 0; i <  Memory.rooms[room.name].factory.toCreate.length; i++){
+                    if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.toCreate[i]){
+                        if(i == 0){ //Haulers
 
+                        }
+                        if(i == 1){ //Upgraders
+
+                        }
+                        if(i == 2){ //Harvesters
+
+                        }
+                        if(i == 3){ //Builders
+
+                        }
+                        if(i == 4){ //Architects
+
+                        }
+                        if(i == 5){ //Organizers
+
+                        }
+                    }
+                }
             }
 
 

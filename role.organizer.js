@@ -58,7 +58,8 @@
                                                 freeSlots--;
                                             }
                                         }
-                                        source.slots = freeSlots;
+                                        source.totalSlots = freeSlots;
+                                        source.slotsRemaining = freeSlots;
                                         source.klair = klair;
                                         Memory.rooms[room.name].sources.push(source);
                                         for (var cid in Memory.creeps) {
@@ -90,13 +91,14 @@
                                                     }
                                                 }
                                             }
+                                            //Assign source to harvester
                                             if (Memory.creeps[cid].role == 'harvester') {
                                                 if (!Memory.creeps[cid].workLog) {
                                                     Memory.creeps[cid].workLog = {};
                                                     /*Looking for source*/
                                                     for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                                        if (Memory.rooms[room.name].sources[j].slots > 0 && Memory.rooms[room.name].sources[j].klair == false) {
-                                                            Memory.rooms[room.name].sources[j].slots--;
+                                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false) {
+                                                            Memory.rooms[room.name].sources[j].slotsRemaining--;
                                                             Memory.creeps[cid].workLog.energyCollected = 0;
                                                             Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
                                                             break;
