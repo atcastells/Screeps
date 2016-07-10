@@ -77,7 +77,7 @@ var roleArchitect = {
                        var project = {};
                        project.process = 0+'%';
                        project.constuctionPoints = Memory.rooms[room.name].architectLog[0][j].constructionPoints;
-                       Memory.rooms[room.name].architectLog[0][j].buildingPriority.push(project);
+                       Memory.rooms[room.name].projects.push(project);
                        Memory.rooms[room.name].architectLog[0][j].process = 'working';
                    }
                 }

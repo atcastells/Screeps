@@ -42,7 +42,7 @@ var factory = {
             if(harvesters.length < maxHarvesters) {
                 if (!(Game.spawns.Spawn1.createCreep([CARRY, WORK, MOVE], undefined, {role: 'harvester'}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) {
                 }
-        }
+            }
 
         }
     },
@@ -54,8 +54,8 @@ var factory = {
             if(!Memory.rooms[room.name].factory){
                 Memory.rooms[room.name].factory = {};
                 Memory.rooms[room.name].factory.created = [0,0,0,0,0];
-                Memory.rooms[room.name].factory.factoryQueue = [0,0,0,0,0];
-                Memory.rooms[room.name].factory.toCreate = [0,0,0,0,0];
+                Memory.rooms[room.name].factory.factoryQueue = [0,0,0,0,1];
+                Memory.rooms[room.name].factory.toCreate = [0,0,0,0,1];
                 Memory.rooms[room.name].factory.isLocked = false;
                 Memory.rooms[room.name].factory.haulersLock = false;
             }
@@ -97,7 +97,7 @@ var factory = {
             else {
                 //FactoryQueue
                 for (var i = 0; i <  Memory.rooms[room.name].factory.toCreate.length; i++){
-                    if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.toCreate[i]){
+                    if(Memory.rooms[room.name].factory.factoryQueue[i] < Memory.rooms[room.name].factory.created[i]){
                         if(i == 0 && !Memory.rooms[room.name].factory.haulersLock && (Memory.rooms[room.name].factory.created[2] > 0)){ //Haulers
                             var haulersToAdd = 0;
                             for(var j in Memory.rooms[room.name].sources){
@@ -120,20 +120,20 @@ var factory = {
                             Memory.rooms[room.name].factory.haulersLock = true;
                         }
                         if(i == 1){ //Upgraders
-                            var totalSlots;
-                            var slotsRemaining;
+                            var totalSlots = 0;
+                            var slotsRemaining = 0;
                             for(var j in Memory.rooms[room.name].sources){
                                 totalSlots += Memory.rooms[room.name].sources[j].totalSlots;
-                                slotsRemaining += totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining;
+                                slotsRemaining += Memory.rooms[room.name].sources[j].slotsRemaining;
                             }
-                            var upgradersToAdd = parseInt(((100-((slotsRemaining*100)/totalSlots))*(Memory.rooms[room.name].factory.toCreate[1]))/100);
+                            var upgradersToAdd = parseInt(((100-((slotsRemaining*100)/totalSlots))*(Memory.rooms[room.name].factory.created[1]))/100);
                             Memory.rooms[room.name].factory.factoryQueue[1] = upgradersToAdd;
                         }
                         if(i == 2){ //Harvesters
                             var harvestersToAdd = 0;
                             for(var j in Memory.rooms[room.name].sources){
                                 if(Memory.rooms[room.name].sources[j].status == 'Active'){
-                                    if(Memory.rooms[room.name].factory.created[1] > 0){
+                                    if(Memory.rooms[room.name].factory.created[0] > 0){
                                         harvestersToAdd += Memory.rooms[room.name].sources[j].slotsRemaining;
                                     }
                                     else {
@@ -144,10 +144,12 @@ var factory = {
                             Memory.rooms[room.name].factory.factoryQueue[2] = harvestersToAdd;
                         }
                         if(i == 3){ //Builders
-
+                            if(Memory.rooms[room.name].factory.created[4] == 1){
+                                var buildersToAdd = Memory.rooms[room.name].projects.length
+                            }
                         }
                         if(i == 4){ //Architects
-
+                            //HC
                         }
                     }
                 }
