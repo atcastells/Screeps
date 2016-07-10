@@ -1,0 +1,266 @@
+<html>
+<head>
+<title>RoomPosition.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,128); font-weight: bold; }
+.s4 { color: rgb(0,128,0); font-weight: bold; }
+.s5 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+RoomPosition.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * An object representing the specified position in the room. 
+ * Every object in the room contains RoomPosition as the pos property. 
+ * The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor. 
+ * 
+ * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+ * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+ * </span><span class="s1">@param </span><span class="s0">{string} roomName The room name. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ * </span><span class="s1">@constructor</span><span class="s0"> 
+ */</span><span class="s2"> 
+RoomPosition = </span><span class="s3">function</span><span class="s2">(x, y, roomName) { }; 
+ 
+RoomPosition.prototype = 
+{ 
+    </span><span class="s0">/** 
+     * The name of the room. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{string} 
+     */</span><span class="s2"> 
+    roomName: </span><span class="s4">&quot;&quot;</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * X position in the room. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    x: </span><span class="s5">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Y position in the room. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    y: </span><span class="s5">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Create new ConstructionSite at the specified location. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} structureType One of the STRUCTURE_* constants. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_INVALID_TARGET|ERR_FULL|ERR_INVALID_ARGS|ERR_RCL_NOT_ENOUGH} 
+     */</span><span class="s2"> 
+    createConstructionSite: </span><span class="s3">function</span><span class="s2">(structureType) { }, 
+ 
+    </span><span class="s0">/** 
+     * Create new Flag at the specified location. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} [name] The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [color] The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [secondaryColor] The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{string|number|ERR_NAME_EXISTS|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    createFlag: </span><span class="s3">function</span><span class="s2">(name, color, secondaryColor) { }, 
+ 
+    </span><span class="s0">/** 
+     * Find an object with the shortest path from the given position. 
+     * Uses A* search algorithm and Dijkstra's algorithm. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} type See Room.find. 
+     * </span><span class="s1">@param </span><span class="s0">{object} [opts] An object containing pathfinding options (see Room.findPath) 
+     * </span><span class="s1">@param </span><span class="s0">{object|function|string} [opts.filter] Only the objects which pass the filter using the Lodash.filter method will be used. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [opts.algorithm] One of the following constants: 
+                                        astar is faster when there are relatively few possible targets; 
+                                        dijkstra is faster when there are a lot of possible targets or when the closest target is nearby. 
+                                        The default value is determined automatically using heuristics. 
+ 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: findClosestByPath: function(objects, opts) 
+     * </span><span class="s1">@param </span><span class="s0">{array} objects An array of room's objects or RoomPosition objects that the search should be executed against. 
+ 
+     * </span><span class="s1">@return </span><span class="s0">{object|null} The closest object if found, null otherwise. 
+     */</span><span class="s2"> 
+    findClosestByPath: </span><span class="s3">function</span><span class="s2">(type, opts) { }, 
+ 
+    </span><span class="s0">/** 
+     * Find an object with the shortest linear distance from the given position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} type See Room.find. 
+     * </span><span class="s1">@param </span><span class="s0">{object} [opts] 
+     * </span><span class="s1">@param </span><span class="s0">{object|function|string} [opts.filter] Only the objects which pass the filter using the Lodash.filter method will be used. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alterative function: findClosestByRange: function(objects, opts) 
+     * </span><span class="s1">@param </span><span class="s0">{array} objects An array of room's objects or RoomPosition objects that the search should be executed against. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{object|null} The closest object if found, null otherwise. 
+     */</span><span class="s2"> 
+    findClosestByRange: </span><span class="s3">function</span><span class="s2">(type, opts) { }, 
+ 
+    </span><span class="s0">/** 
+     * Find all objects in the specified linear range. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} type See Room.find. 
+     * </span><span class="s1">@param </span><span class="s0">{number} range The range distance. 
+     * </span><span class="s1">@param </span><span class="s0">{object} [opts] See Room.find. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: findInRange(objects, range, opts) 
+     * </span><span class="s1">@param </span><span class="s0">{array} objects An array of room's objects or RoomPosition objects that the search should be executed against. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{array} An array with the objects found. 
+     */</span><span class="s2"> 
+    findInRange: </span><span class="s3">function</span><span class="s2">(type, range, opts) { }, 
+ 
+    </span><span class="s0">/** 
+     * Find an optimal path to the specified position using A* search algorithm. 
+     * This method is a shorthand for Room.findPath. 
+     * If the target is in another room, then the corresponding exit will be used as a target. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{object} [opts] An object containing pathfinding options flags (see Room.findPath for more details). 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: findPathTo(target, opts) 
+     * </span><span class="s1">@param </span><span class="s0">{object} target Can be a RoomPosition object or any object containing RoomPosition. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{array} An array with path steps in the following format: 
+                         [ 
+                            { x: 10, y: 5, dx: 1,  dy: 0, direction: RIGHT }, 
+                            { x: 10, y: 6, dx: 0,  dy: 1, direction: BOTTOM }, 
+                            { x: 9,  y: 7, dx: -1, dy: 1, direction: BOTTOM_LEFT }, 
+                             ... 
+                         ] 
+     */</span><span class="s2"> 
+    findPathTo: </span><span class="s3">function</span><span class="s2">(x, y, opts) { }, 
+ 
+    </span><span class="s0">/** 
+     * Get linear direction to the specified position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: getDirectionTo(target) 
+     * </span><span class="s1">@param </span><span class="s0">{object} target Can be a RoomPosition object or any object containing RoomPosition. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|TOP|TOP_RIGHT|RIGHT|BOTTOM_RIGHT|BOTTOM|BOTTOM_LEFT|LEFT|TOP_LEFT} A number representing one of the direction constants. 
+     */</span><span class="s2"> 
+    getDirectionTo: </span><span class="s3">function</span><span class="s2">(x, y) { }, 
+ 
+    </span><span class="s0">/** 
+     * Get linear range to the specified position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: getRangeTo(target) 
+     * </span><span class="s1">@param </span><span class="s0">{object} target Can be a RoomPosition object or any object containing RoomPosition. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number} A number of squares to the given position. 
+     */</span><span class="s2"> 
+    getRangeTo: </span><span class="s3">function</span><span class="s2">(x, y) { }, 
+ 
+    </span><span class="s0">/** 
+     * Check whether this position is in the given range of another position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} range The range distance. 
+     * 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: inRangeTo(target, range) 
+     * </span><span class="s1">@param </span><span class="s0">{RoomPosition} target The target position. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{boolean} 
+     */</span><span class="s2"> 
+    inRangeTo: </span><span class="s3">function</span><span class="s2">(x, y, range) { }, 
+ 
+    </span><span class="s0">/** 
+     * Check whether this position is the same as the specified position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: isEqualTo(target) 
+     * </span><span class="s1">@param </span><span class="s0">{object} target Can be a RoomPosition object or any object containing RoomPosition. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{boolean} 
+     */</span><span class="s2"> 
+    isEqualTo: </span><span class="s3">function</span><span class="s2">(x, y) { }, 
+ 
+    </span><span class="s0">/** 
+     * Check whether this position is on the adjacent square to the specified position. 
+     * The same as inRangeTo(target, 1) 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{number} x X position in the room. 
+     * </span><span class="s1">@param </span><span class="s0">{number} y Y position in the room. 
+     * 
+     * </span><span class="s1">@note </span><span class="s0">Alternative function: isNearTo(target) 
+     * </span><span class="s1">@param </span><span class="s0">{object} target Can be a RoomPosition object or any object containing RoomPosition. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{boolean} 
+     */</span><span class="s2"> 
+    isNearTo: </span><span class="s3">function</span><span class="s2">(x, y) { }, 
+ 
+    </span><span class="s0">/** 
+     * Get the list of objects at the specified room position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{array} An array with objects at the specified position in the following format: 
+                         [ 
+                            { type: 'creep', creep: {...} }, 
+                            { type: 'structure', structure: {...} }, 
+                            ... 
+                            { type: 'terrain', terrain: 'swamp' } 
+                         ] 
+     */</span><span class="s2"> 
+    look: </span><span class="s3">function</span><span class="s2">() { }, 
+ 
+    </span><span class="s0">/** 
+     * Get an object with the given type at the specified room position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} type One of the LOOK_* constants. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{array} An array of objects of the given type at the specified position if found. 
+     */</span><span class="s2"> 
+    lookFor: </span><span class="s3">function</span><span class="s2">(type) { } 
+}; 
+</span></pre>
+</body>
+</html>

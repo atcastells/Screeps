@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>role.harvester.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(0,0,128); font-weight: bold; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(128,128,128); font-style: italic; }
+.s3 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s4 { color: rgb(0,0,255); }
+.s5 { color: rgb(0,128,0); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+role.harvester.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">var </span><span class="s1">roleHarvester = { 
+ 
+    </span><span class="s2">/** </span><span class="s3">@param </span><span class="s2">{Creep} creep **/</span><span class="s1"> 
+    run: </span><span class="s0">function</span><span class="s1">(creep,list) { 
+        </span><span class="s0">for </span><span class="s1">(</span><span class="s0">var </span><span class="s1">id </span><span class="s0">in </span><span class="s1">Game.rooms) { 
+            </span><span class="s0">var </span><span class="s1">room = Game.rooms[id]; 
+            </span><span class="s0">var </span><span class="s1">targetSource = Memory.creeps[creep.name].workLog.sources; 
+            </span><span class="s0">var </span><span class="s1">targetPos; 
+            </span><span class="s0">for</span><span class="s1">(</span><span class="s0">var </span><span class="s1">i = </span><span class="s4">0</span><span class="s1">; i &lt; Memory.rooms[room.name].sources.length; i++){ 
+                </span><span class="s0">if</span><span class="s1">(Memory.rooms[room.name].sources[i].id == targetSource){ 
+                    </span><span class="s0">var </span><span class="s1">resource = Game.getObjectById(Memory.rooms[room.name].sources[i].id); 
+                } 
+            } 
+            </span><span class="s0">if </span><span class="s1">(creep.carry.energy &lt; creep.carryCapacity) { 
+                </span><span class="s0">if </span><span class="s1">(creep.harvest(resource) == ERR_NOT_IN_RANGE) { 
+                    creep.moveTo(resource); 
+                } 
+            } 
+            </span><span class="s0">else </span><span class="s1">{ 
+                </span><span class="s0">var </span><span class="s1">haulers = list; 
+                </span><span class="s0">if </span><span class="s1">(haulers.length &gt; </span><span class="s4">0</span><span class="s1">) { 
+                    creep.drop(RESOURCE_ENERGY); 
+                } 
+                </span><span class="s0">else </span><span class="s1">{ 
+                    creep.say(</span><span class="s5">'No Hauler!'</span><span class="s1">); 
+                    </span><span class="s0">var </span><span class="s1">storage = creep.room.find(FIND_MY_STRUCTURES, { 
+                        filter: (structure) =&gt; { 
+                            </span><span class="s0">return </span><span class="s1">(structure.structureType == STRUCTURE_SPAWN || 
+                            structure.structureType == STRUCTURE_CONTAINER); 
+                        } 
+                    }); 
+                    </span><span class="s0">var </span><span class="s1">targetStorage = creep.pos.findClosestByPath(storage); 
+                    </span><span class="s0">if </span><span class="s1">(creep.transfer(targetStorage, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) { 
+                        creep.moveTo(targetStorage); 
+                    } 
+                } 
+            } 
+        } 
+    } 
+}; 
+ 
+module.exports = roleHarvester;</span></pre>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>StructureTerminal.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,128); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+StructureTerminal.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * Sends any resources to a Terminal in another room. 
+ * The destination Terminal can belong to any player. 
+ * If its storage is full, the resources are dropped on the ground. 
+ * Each transaction requires additional energy (regardless of the transfer resource type) according to this formula: ceil(0.1 * amount * linearDistanceBetweenRooms). 
+ * For example, sending 100 mineral units from W1N1 to W2N3 will consume 20 energy units. 
+ * You can track your incoming and outgoing transactions and estimate range cost between rooms using the Game.market object. 
+ * Only one Terminal per room is allowed that can be addressed by Room.terminal property. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ * </span><span class="s1">@extends </span><span class="s0">{OwnedStructure} 
+ */</span><span class="s2"> 
+StructureTerminal = </span><span class="s3">function</span><span class="s2">() { }; 
+ 
+StructureTerminal.prototype = 
+{ 
+    </span><span class="s0">/** 
+     * An object with the storage contents. 
+     * Each object key is one of the RESOURCE_* constants, values are resources amounts. 
+     * Use _.sum(structure.store) to get the total amount of contents. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, number&gt;} 
+     */</span><span class="s2"> 
+    store: {}, 
+ 
+    </span><span class="s0">/** 
+     * The total amount of resources the storage can contain. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    storeCapacity: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Sends resource to a Terminal in another room with the specified name. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} resourceType One of the RESOURCE_* constants. 
+     * </span><span class="s1">@param </span><span class="s0">{number} amount The amount of resources to be sent. The minimum amount is 100. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [destination] The name of the target room. You don't have to gain visibility in this room. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [description] The description of the transaction. It is visible to the recipient. The maximum length is 100 characters. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_OWNER|ERR_NOT_ENOUGH_RESOURCES|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    send: </span><span class="s3">function</span><span class="s2">(resourceType, amount, destination, description) { }, 
+ 
+    </span><span class="s0">/** 
+     * Transfer resource from this terminal to a creep. 
+     * The target has to be at adjacent square. 
+     * You can transfer resources to your creeps from hostile structures as well. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{Creep} target The target object. 
+     * </span><span class="s1">@param </span><span class="s0">{string} resourceType One of the RESOURCE_* constants. 
+     * </span><span class="s1">@param </span><span class="s0">{number} [amount] The amount of resources to be transferred. If omitted, all the available amount is used. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_OWNER|ERR_NOT_ENOUGH_RESOURCES|ERR_INVALID_TARGET|ERR_FULL|ERR_NOT_IN_RANGE|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    transfer: </span><span class="s3">function</span><span class="s2">(target, resourceType, amount) { } 
+}; 
+</span></pre>
+</body>
+</html>

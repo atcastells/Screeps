@@ -1,0 +1,222 @@
+<html>
+<head>
+<title>factory.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(0,0,0); }
+.s2 { color: rgb(0,0,128); font-weight: bold; }
+.s3 { color: rgb(0,128,0); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+factory.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * Created by acastells on 03/07/2016. 
+ */</span><span class="s1"> 
+</span><span class="s2">var </span><span class="s1">factory = { 
+ 
+ 
+    normalSpawn: </span><span class="s2">function </span><span class="s1">(maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters) { 
+        </span><span class="s2">var </span><span class="s1">spawnList = Game.rooms[</span><span class="s3">'sim'</span><span class="s1">].find(FIND_MY_STRUCTURES, { 
+            filter:(structure) =&gt; { 
+                </span><span class="s2">return </span><span class="s1">(structure.structureType == STRUCTURE_SPAWN); 
+            } 
+        }); 
+ 
+        </span><span class="s2">var </span><span class="s1">queue = spawnList.length; 
+        </span><span class="s2">var </span><span class="s1">organizers = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'organizer'</span><span class="s1">); 
+        </span><span class="s2">if</span><span class="s1">(organizers.length &lt; maxOrganizers){ 
+            </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([MOVE], undefined, {role: </span><span class="s3">'organizer'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))){ 
+            } 
+        } 
+        </span><span class="s2">else </span><span class="s1">{ 
+            </span><span class="s2">var </span><span class="s1">architects = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'architect'</span><span class="s1">); 
+            </span><span class="s2">if</span><span class="s1">(architects.length &lt; </span><span class="s4">1</span><span class="s1">){ 
+                </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: </span><span class="s3">'architect'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) { 
+                } 
+            } 
+            </span><span class="s2">var </span><span class="s1">builders = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'builder'</span><span class="s1">); 
+            </span><span class="s2">if</span><span class="s1">(builders.length &lt; maxBuilders){ 
+                </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([CARRY,WORK,MOVE], undefined, {role: </span><span class="s3">'builder'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) { 
+                } 
+            } 
+            </span><span class="s2">var </span><span class="s1">haulers = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'hauler'</span><span class="s1">); 
+            </span><span class="s2">if</span><span class="s1">(haulers.length &lt; maxHaulers){ 
+                </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([CARRY,CARRY,MOVE], undefined, {role: </span><span class="s3">'hauler'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) { 
+                } 
+            } 
+            </span><span class="s2">var </span><span class="s1">upgraders = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'upgrader'</span><span class="s1">); 
+            </span><span class="s2">if</span><span class="s1">(upgraders.length &lt; maxUpgraders) { 
+                </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([CARRY, CARRY, MOVE], undefined, {role: </span><span class="s3">'upgrader'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) { 
+                } 
+            } 
+            </span><span class="s2">var </span><span class="s1">harvesters = _.filter(Game.creeps, (creep) =&gt; creep.memory.role == </span><span class="s3">'harvester'</span><span class="s1">); 
+            </span><span class="s2">if</span><span class="s1">(harvesters.length &lt; maxHarvesters) { 
+                </span><span class="s2">if </span><span class="s1">(!(Game.spawns.Spawn1.createCreep([CARRY, WORK, MOVE], undefined, {role: </span><span class="s3">'harvester'</span><span class="s1">}) == (ERR_NOT_ENOUGH_ENERGY || ERR_BUSY))) { 
+                } 
+        } 
+ 
+        } 
+    }, 
+    dynamicSpawn: </span><span class="s2">function </span><span class="s1">() { 
+        </span><span class="s2">for </span><span class="s1">(</span><span class="s2">var </span><span class="s1">id </span><span class="s2">in </span><span class="s1">Game.rooms) { 
+             
+            </span><span class="s2">var </span><span class="s1">room = Game.rooms[id]; 
+            </span><span class="s2">var </span><span class="s1">numslots; 
+            </span><span class="s2">var </span><span class="s1">numSources = Memory.rooms[room.name].sources.length; 
+ 
+            </span><span class="s2">if</span><span class="s1">(!Memory.rooms[room.name].factory){ 
+                Memory.rooms[room.name].factory = {}; 
+                Memory.rooms[room.name].factory.created = [</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">]; 
+                Memory.rooms[room.name].factory.factoryQueue = [</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">]; 
+                Memory.rooms[room.name].factory.toCreate = [</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">,</span><span class="s4">0</span><span class="s1">]; 
+                Memory.rooms[room.name].factory.isLocked = </span><span class="s2">false</span><span class="s1">; 
+                Memory.rooms[room.name].factory.haulersLock = </span><span class="s2">false</span><span class="s1">; 
+            } 
+            </span><span class="s0">/*Num Spawns*/</span><span class="s1"> 
+            </span><span class="s2">var </span><span class="s1">numSpawns = </span><span class="s4">0</span><span class="s1">; 
+            </span><span class="s2">for</span><span class="s1">(</span><span class="s2">var </span><span class="s1">i </span><span class="s2">in </span><span class="s1">Memory.rooms[room.name].structures){   </span><span class="s0">//Spawn num in room</span><span class="s1"> 
+                </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].structures[i].structureType == </span><span class="s3">'spawn'</span><span class="s1">){ 
+                    numSpawns++; 
+                    spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id); 
+                } 
+            } 
+            </span><span class="s0">/*Fill toCreate list*/</span><span class="s1"> 
+ 
+            </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].factory.isLocked == </span><span class="s2">false</span><span class="s1">){ 
+                </span><span class="s2">var </span><span class="s1">hauler = </span><span class="s4">0</span><span class="s1">, upgrader = </span><span class="s4">0</span><span class="s1">, harvester = </span><span class="s4">0</span><span class="s1">, builder = </span><span class="s4">0</span><span class="s1">, architect = </span><span class="s4">0</span><span class="s1">, organizer = </span><span class="s4">0</span><span class="s1">; 
+ 
+                </span><span class="s2">for </span><span class="s1">(</span><span class="s2">var </span><span class="s1">i </span><span class="s2">in </span><span class="s1">Memory.rooms[room.name].sources){ 
+                    numslots +=    Memory.rooms[room.name].sources[i].totalSlots; 
+                    </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].sources[i].totalSlots &gt; </span><span class="s4">1</span><span class="s1">){ 
+                        hauler += </span><span class="s4">2</span><span class="s1">; 
+                    } 
+                    </span><span class="s2">else </span><span class="s1">{ 
+                        hauler += </span><span class="s4">1</span><span class="s1">; 
+                    } 
+                } 
+ 
+                harvester = numslots; 
+                upgrader = harvester/</span><span class="s4">4</span><span class="s1">; 
+                builder = harvester/</span><span class="s4">2</span><span class="s1">; 
+                architect, organizer = </span><span class="s4">1</span><span class="s1">; 
+ 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">0</span><span class="s1">] = hauler; 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">1</span><span class="s1">] = upgrader; 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">2</span><span class="s1">] = harvester; 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">3</span><span class="s1">] = builder; 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">4</span><span class="s1">] = architect; 
+                Memory.rooms[room.name].factory.toCreate[</span><span class="s4">5</span><span class="s1">] = organizer; 
+                Memory.rooms[room.name].factory.isLocked = </span><span class="s2">true</span><span class="s1">; 
+            } 
+            </span><span class="s2">else </span><span class="s1">{ 
+                </span><span class="s0">//FactoryQueue</span><span class="s1"> 
+                </span><span class="s2">for </span><span class="s1">(</span><span class="s2">var </span><span class="s1">i = </span><span class="s4">0</span><span class="s1">; i &lt;  Memory.rooms[room.name].factory.toCreate.length; i++){ 
+                    </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].factory.factoryQueue[i] &lt; Memory.rooms[room.name].factory.toCreate[i]){ 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">0 </span><span class="s1">&amp;&amp; !Memory.rooms[room.name].factory.haulersLock &amp;&amp; (Memory.rooms[room.name].factory.created[</span><span class="s4">2</span><span class="s1">] &gt; </span><span class="s4">0 </span><span class="s1">|| Memory.rooms[room.name].factory.toCreate[</span><span class="s4">2</span><span class="s1">] &gt; </span><span class="s4">0</span><span class="s1">)){ </span><span class="s0">//Haulers</span><span class="s1"> 
+                            Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">0</span><span class="s1">] = </span><span class="s4">0</span><span class="s1">;    </span><span class="s0">//Reset hauler queue to recheck</span><span class="s1"> 
+                            </span><span class="s2">for</span><span class="s1">(</span><span class="s2">var </span><span class="s1">j </span><span class="s2">in </span><span class="s1">Memory.rooms[room.name].sources){ 
+                                </span><span class="s2">var </span><span class="s1">totalSlots = Memory.rooms[room.name].sources[j].totalSlots; 
+                                </span><span class="s2">var </span><span class="s1">slotsRemaining = totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining; 
+                                </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].sources[j].totalSlots &gt; </span><span class="s4">1</span><span class="s1">){ 
+                                    </span><span class="s2">if</span><span class="s1">(parseInt((slotsRemaining * </span><span class="s4">100</span><span class="s1">)/totalSlots) &lt; </span><span class="s4">50</span><span class="s1">){ 
+                                        Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">0</span><span class="s1">] += </span><span class="s4">1</span><span class="s1">; 
+                                    } 
+                                    </span><span class="s2">else </span><span class="s1">{ 
+                                        Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">0</span><span class="s1">] += </span><span class="s4">2</span><span class="s1">; 
+                                    } 
+                                } 
+                                </span><span class="s2">else </span><span class="s1">{ 
+                                    </span><span class="s2">if</span><span class="s1">(parseInt((slotsRemaining * </span><span class="s4">100</span><span class="s1">)/totalSlots) &gt;= </span><span class="s4">50</span><span class="s1">){ 
+                                        Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">0</span><span class="s1">] += </span><span class="s4">1</span><span class="s1">; 
+                                    } 
+                                } 
+                            } 
+                            Memory.rooms[room.name].factory.haulersLock = </span><span class="s2">true</span><span class="s1">; 
+                        } 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">1</span><span class="s1">){ </span><span class="s0">//Upgraders</span><span class="s1"> 
+                            </span><span class="s2">var </span><span class="s1">totalSlots; 
+                            </span><span class="s2">var </span><span class="s1">slotsRemaining; 
+                            </span><span class="s2">for</span><span class="s1">(</span><span class="s2">var </span><span class="s1">j </span><span class="s2">in </span><span class="s1">Memory.rooms[room.name].sources){ 
+                                totalSlots += Memory.rooms[room.name].sources[j].totalSlots; 
+                                slotsRemaining += totalSlots = Memory.rooms[room.name].sources[j].slotsRemaining; 
+                            } 
+                            </span><span class="s2">var </span><span class="s1">upgradersToAdd = parseInt(((</span><span class="s4">100</span><span class="s1">-((slotsRemaining*</span><span class="s4">100</span><span class="s1">)/totalSlots))*(Memory.rooms[room.name].factory.toCreate[</span><span class="s4">1</span><span class="s1">]))/</span><span class="s4">100</span><span class="s1">); 
+                            Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">1</span><span class="s1">] = upgradersToAdd; 
+                        } 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">2</span><span class="s1">){ </span><span class="s0">//Harvesters</span><span class="s1"> 
+                            </span><span class="s2">var </span><span class="s1">harvestersToAdd = </span><span class="s4">0</span><span class="s1">; 
+                            </span><span class="s2">for</span><span class="s1">(</span><span class="s2">var </span><span class="s1">j </span><span class="s2">in </span><span class="s1">Memory.rooms[room.name].sources){ 
+                                </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].sources[j].status == </span><span class="s3">'Active'</span><span class="s1">){ 
+                                    </span><span class="s2">if</span><span class="s1">(Memory.rooms[room.name].factory.created[</span><span class="s4">1</span><span class="s1">] &gt; </span><span class="s4">0</span><span class="s1">){ 
+                                        harvestersToAdd += Memory.rooms[room.name].sources[j].slotsRemaining; 
+                                    } 
+                                    </span><span class="s2">else </span><span class="s1">{ 
+                                        harvestersToAdd += </span><span class="s4">1</span><span class="s1">; 
+                                    } 
+                                } 
+                            } 
+                            Memory.rooms[room.name].factory.factoryQueue[</span><span class="s4">2</span><span class="s1">] = harvestersToAdd; 
+                        } 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">3</span><span class="s1">){ </span><span class="s0">//Builders</span><span class="s1"> 
+                             
+                        } 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">4</span><span class="s1">){ </span><span class="s0">//Architects</span><span class="s1"> 
+ 
+                        } 
+                        </span><span class="s2">if</span><span class="s1">(i == </span><span class="s4">5</span><span class="s1">){ </span><span class="s0">//Organizers</span><span class="s1"> 
+ 
+                        } 
+                    } 
+                } 
+            } 
+ 
+ 
+ 
+ 
+ 
+            </span><span class="s0">/*Create array with room unit queue*/</span><span class="s1"> 
+ 
+ 
+ 
+        } 
+    }, 
+    creeps: </span><span class="s2">function </span><span class="s1">(role) { 
+        </span><span class="s2">var </span><span class="s1">roles = [</span><span class="s3">'hauler'</span><span class="s1">,</span><span class="s3">'upgrader'</span><span class="s1">,</span><span class="s3">'harvester'</span><span class="s1">,</span><span class="s3">'builder'</span><span class="s1">,</span><span class="s3">'architect'</span><span class="s1">,</span><span class="s3">'organizer'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">bodyHauler = [</span><span class="s3">'CARRY'</span><span class="s1">,</span><span class="s3">'MOVE'</span><span class="s1">,</span><span class="s3">'CARRY'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">bodyUpgrader = [</span><span class="s3">'CARRY'</span><span class="s1">,</span><span class="s3">'MOVE'</span><span class="s1">,</span><span class="s3">'WORK'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">bodyHarvester = [</span><span class="s3">'WORK'</span><span class="s1">,</span><span class="s3">'MOVE'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">bodyBuilder = [</span><span class="s3">'CARRY'</span><span class="s1">,</span><span class="s3">'MOVE'</span><span class="s1">,</span><span class="s3">'WORK'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">bodyMisc = [</span><span class="s3">'MOVE'</span><span class="s1">]; 
+        </span><span class="s2">var </span><span class="s1">creep = {}; 
+        </span><span class="s2">var </span><span class="s1">selectedRole = roles.indexOf(role); 
+        </span><span class="s2">if</span><span class="s1">(roles[selectedRole] == </span><span class="s3">'hauler'</span><span class="s1">){ 
+            creep.body = bodyHauler; 
+        } 
+        </span><span class="s2">if</span><span class="s1">(roles[selectedRole] == </span><span class="s3">'upgrader'</span><span class="s1">){ 
+            creep.body = bodyUpgrader 
+        } 
+        </span><span class="s2">if</span><span class="s1">(roles[selectedRole] == </span><span class="s3">'harvester'</span><span class="s1">) { 
+            creep.body = bodyHarvester; 
+        } 
+        </span><span class="s2">if</span><span class="s1">(roles[selectedRole] == </span><span class="s3">'builder'</span><span class="s1">){ 
+            creep.body = bodyBuilder; 
+        } 
+        </span><span class="s2">else </span><span class="s1">{ 
+            creep.body = bodyMisc; 
+        } 
+        </span><span class="s2">return </span><span class="s1">creep; 
+    } 
+ 
+}; 
+module.exports = factory;</span></pre>
+</body>
+</html>

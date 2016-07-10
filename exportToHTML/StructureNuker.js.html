@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>StructureNuker.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,128); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+StructureNuker.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * Launches a nuke to another room dealing huge damage to the landing area. 
+ * Each launch has a cooldown and requires energy and ghodium resources. 
+ * Launching creates a Nuke object at the target room position which is visible to any player until it is landed. 
+ * Incoming nuke cannot be moved or cancelled. Nukes cannot be launched from or to novice rooms. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ * </span><span class="s1">@extends </span><span class="s0">{OwnedStructure} 
+ */</span><span class="s2"> 
+StructureNuker = </span><span class="s3">function</span><span class="s2">() { }; 
+ 
+StructureNuker.prototype = 
+{ 
+    </span><span class="s0">/** 
+     * The amount of energy containing in this structure. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    energy: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The total amount of energy this structure can contain. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    energyCapacity: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The amount of ghodium containing in this structure. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    ghodium: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The total amount of ghodium this structure can contain. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    ghodiumCapacity: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The amount of game ticks until the next launch is possible. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    cooldown: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Launch a nuke to the specified position. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{RoomPosition} pos The target room position. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_OWNER|ERR_NOT_ENOUGH_RESOURCES|ERR_INVALID_TARGET|ERR_NOT_IN_RANGE|ERR_TIRED|ERR_RCL_NOT_ENOUGH} 
+     */</span><span class="s2"> 
+    launchNuke: </span><span class="s3">function</span><span class="s2">(pos) { } 
+}; 
+</span></pre>
+</body>
+</html>

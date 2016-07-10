@@ -1,0 +1,177 @@
+<html>
+<head>
+<title>Game.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,255); }
+.s4 { color: rgb(0,0,128); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Game.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * The main global game object containing all the gameplay information. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ */</span><span class="s2"> 
+Game = 
+{ 
+    </span><span class="s0">/** 
+     * An object containing information about your CPU usage 
+     */</span><span class="s2"> 
+    cpu: 
+    { 
+        </span><span class="s0">/** 
+         * Your CPU limit depending on your Global Control Level. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        limit: </span><span class="s3">0</span><span class="s2">, 
+ 
+        </span><span class="s0">/** 
+         * An amount of available CPU time at the current game tick. 
+         * It can be higher than Game.cpu.limit. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        tickLimit: </span><span class="s3">0</span><span class="s2">, 
+ 
+        </span><span class="s0">/** 
+         * An amount of unused CPU accumulated in your bucket. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        bucket: </span><span class="s3">0</span><span class="s2">, 
+ 
+        </span><span class="s0">/** 
+         * Get amount of CPU time used from the beginning of the current game tick. 
+         * Always returns 0 in the Simulation mode. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{function} 
+         * 
+         * </span><span class="s1">@return </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        getUsed: </span><span class="s4">function</span><span class="s2">() { } 
+    }, 
+ 
+    </span><span class="s0">/** 
+     * A hash containing all your creeps with creep names as hash keys. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, Creep&gt;} 
+     */</span><span class="s2"> 
+    creeps: {}, 
+ 
+    </span><span class="s0">/** 
+     * A hash containing all your flags with flag names as hash keys. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, Flag&gt;} 
+     */</span><span class="s2"> 
+    flags: {}, 
+ 
+    </span><span class="s0">/** 
+     * Your Global Control Level 
+     */</span><span class="s2"> 
+    gcl: 
+    { 
+        </span><span class="s0">/** 
+         * The current level. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        level: </span><span class="s3">0</span><span class="s2">, 
+ 
+        </span><span class="s0">/** 
+         * The current progress to the next level. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        progress: </span><span class="s3">0</span><span class="s2">, 
+ 
+        </span><span class="s0">/** 
+         * The progress required to reach the next level. 
+         * 
+         * </span><span class="s1">@type </span><span class="s0">{number} 
+         */</span><span class="s2"> 
+        progressTotal: </span><span class="s3">0</span><span class="s2"> 
+    }, 
+ 
+    </span><span class="s0">/** 
+     * A global object representing world map. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Map} 
+     */</span><span class="s2"> 
+    map: </span><span class="s4">null</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * A global object representing the in-game market. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Market} 
+     */</span><span class="s2"> 
+    market: </span><span class="s4">null</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * A hash containing all the rooms available to you with room names as hash keys. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, Room&gt;} 
+     */</span><span class="s2"> 
+    rooms: {}, 
+ 
+    </span><span class="s0">/** 
+     * A hash containing all your spawns with spawn names as hash keys. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, Spawn&gt;} 
+     */</span><span class="s2"> 
+    spawns: {}, 
+ 
+    </span><span class="s0">/** 
+     * A hash containing all your structures with structure id as hash keys. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{Array&lt;string, Structure&gt;} 
+     */</span><span class="s2"> 
+    structures: {}, 
+ 
+    </span><span class="s0">/** 
+     * System game tick counter. It is automatically incremented on every tick. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    time: </span><span class="s3">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Get an object with the specified unique ID. 
+     * It may be a game object of any type. 
+     * Only objects from the rooms which are visible to you can be accessed. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} id The unique identificator. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{object|null} 
+     */</span><span class="s2"> 
+    getObjectById: </span><span class="s4">function</span><span class="s2">(id) { }, 
+ 
+    </span><span class="s0">/** 
+     * Send a custom message at your profile email. 
+     * This way, you can set up notifications to yourself on any occasion within the game. 
+     * You can schedule up to 20 notifications during one game tick. 
+     * Not available in the Simulation Room. 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} message Custom text which will be sent in the message. Maximum length is 1000 characters. 
+     * </span><span class="s1">@param </span><span class="s0">{number} [groupInterval] If set to 0 (default), the notification will be scheduled immediately. Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{void} 
+     */</span><span class="s2"> 
+    notify: </span><span class="s4">function</span><span class="s2">(message, groupInterval) { } 
+}; 
+</span></pre>
+</body>
+</html>

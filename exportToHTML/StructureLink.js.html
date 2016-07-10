@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>StructureLink.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,128); font-weight: bold; }
+.s4 { color: rgb(0,0,255); }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+StructureLink.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * Remotely transfers energy to another Link in the same room. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ * </span><span class="s1">@extends </span><span class="s0">{OwnedStructure} 
+ */</span><span class="s2"> 
+StructureLink = </span><span class="s3">function</span><span class="s2">() { }; 
+ 
+StructureLink.prototype = 
+{ 
+    </span><span class="s0">/** 
+     * The amount of game ticks the link has to wait until the next transfer is possible. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    cooldown: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The amount of energy containing in the link. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    energy: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * The total amount of energy the link can contain. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{number} 
+     */</span><span class="s2"> 
+    energyCapacity: </span><span class="s4">0</span><span class="s2">, 
+ 
+    </span><span class="s0">/** 
+     * Transfer energy from the link to another link or a creep. 
+     * If the target is a creep, it has to be at adjacent square to the link. 
+     * If the target is a link, it can be at any location in the same room. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{Creep|StructureLink} target The target object. 
+     * </span><span class="s1">@param </span><span class="s0">{number} [amount] The amount of energy to be transferred. If omitted, all the available energy is used. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_OWNER|ERR_NOT_ENOUGH_RESOURCES|ERR_INVALID_TARGET|ERR_FULL|ERR_NOT_IN_RANGE|ERR_INVALID_ARGS|ERR_TIRED|ERR_RCL_NOT_ENOUGH} 
+     */</span><span class="s2"> 
+    transferEnergy: </span><span class="s3">function</span><span class="s2">(target, amount) { } 
+}; 
+</span></pre>
+</body>
+</html>

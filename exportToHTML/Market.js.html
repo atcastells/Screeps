@@ -1,0 +1,210 @@
+<html>
+<head>
+<title>Market.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.ln { color: rgb(0,0,0); font-weight: normal; font-style: normal; }
+.s0 { color: rgb(128,128,128); font-style: italic; }
+.s1 { color: rgb(128,128,128); font-weight: bold; font-style: italic; }
+.s2 { color: rgb(0,0,0); }
+.s3 { color: rgb(0,0,128); font-weight: bold; }
+</style>
+</head>
+<BODY BGCOLOR="#ffffff">
+<TABLE CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#C0C0C0" >
+<TR><TD><CENTER>
+<FONT FACE="Arial, Helvetica" COLOR="#000000">
+Market.js</FONT>
+</center></TD></TR></TABLE>
+<pre>
+<span class="s0">/** 
+ * A global object representing the in-game market. 
+ * You can use this object to track resource transactions to/from your terminals, and your buy/sell orders (in development). 
+ * The object is accessible via the singleton Game.market property. 
+ * 
+ * </span><span class="s1">@class</span><span class="s0"> 
+ */</span><span class="s2"> 
+Market = </span><span class="s3">function</span><span class="s2">() { }; 
+ 
+Market.prototype = 
+{ 
+    </span><span class="s0">/** 
+     * An array of the last 100 incoming transactions to your terminals with the following format: 
+     [{ 
+        transactionId : &quot;56dec546a180ce641dd65960&quot;, 
+        time : 10390687, 
+        sender : {username: &quot;Sender&quot;}, 
+        recipient : {username: &quot;Me&quot;}, 
+        resourceType : &quot;U&quot;, 
+        amount : 100, 
+        from : &quot;W0N0&quot;, 
+        to : &quot;W10N10&quot;, 
+        description : &quot;trade contract #1&quot;, 
+        order: {        // optional 
+            id : &quot;55c34a6b5be41a0a6e80c68b&quot;, 
+            type : &quot;sell&quot;, 
+            price : 2.95 
+        } 
+    }] 
+ 
+     * </span><span class="s1">@type </span><span class="s0">{Array} 
+     */</span><span class="s2"> 
+    incomingTransactions: [], 
+ 
+    </span><span class="s0">/** 
+     * An array of the last 100 outgoing transactions from your terminals with the following format: 
+     [{ 
+        transactionId : &quot;56dec546a180ce641dd65960&quot;, 
+        time : 10390687, 
+        sender : {username: &quot;Me&quot;}, 
+        recipient : {username: &quot;Recipient&quot;}, 
+        resourceType : &quot;U&quot;, 
+        amount : 100, 
+        from : &quot;W0N0&quot;, 
+        to : &quot;W10N10&quot;, 
+        description : &quot;trade contract #1&quot;, 
+        order: {        // optional 
+            id : &quot;55c34a6b5be41a0a6e80c68b&quot;, 
+            type : &quot;sell&quot;, 
+            price : 2.95 
+        } 
+    }] 
+ 
+     * </span><span class="s1">@type </span><span class="s0">{Array} 
+     */</span><span class="s2"> 
+    outgoingTransactions: [], 
+ 
+    </span><span class="s0">/** 
+     * This property is still under development. 
+     * An array of your active and inactive buy/sell orders on the market, in the following format: 
+     [ 
+         { 
+            id : &quot;55c34a6b5be41a0a6e80c68b&quot;, 
+            active : true, 
+            type : &quot;sell&quot; 
+            resourceType : &quot;OH&quot;, 
+            roomName : &quot;W1N1&quot;, 
+            amount : 15821, 
+            price : 2.95 
+        }, { 
+            id : &quot;55c34a6b52411a0a6e80693a&quot;, 
+            active : true, 
+            type : &quot;buy&quot; 
+            resourceType : &quot;energy&quot;, 
+            roomName : &quot;W1N1&quot;, 
+            amount : 94000, 
+            price : 0.45 
+        }, { 
+            id : &quot;55c34a6b5be41a0a6e80c123&quot;, 
+            active : true, 
+            type : &quot;sell&quot; 
+            resourceType : &quot;token&quot;, 
+            amount : 3, 
+            price : 50000 
+        } 
+     ] 
+ 
+     * </span><span class="s1">@type </span><span class="s0">{Array} 
+     */</span><span class="s2"> 
+    myOrders: [], 
+ 
+    </span><span class="s0">/** 
+     * This property is still under development. 
+     * An array of all available buy/sell orders on the market. 
+     * Only active orders are visible. 
+     [ 
+         { 
+             id : &quot;55c34a6b5be41a0a6e80c68b&quot;, 
+             type : &quot;sell&quot; 
+             resourceType : &quot;OH&quot;, 
+             roomName : &quot;W1N1&quot;, 
+             amount : 15821, 
+             price : 2.95 
+         }, { 
+            id : &quot;55c34a6b52411a0a6e80693a&quot;, 
+            type : &quot;buy&quot; 
+            resourceType : &quot;energy&quot;, 
+            roomName : &quot;W1N1&quot;, 
+            amount : 94000, 
+            price : 0.45 
+        }, { 
+            id : &quot;55c34a6b5be41a0a6e80c123&quot;, 
+            type : &quot;sell&quot; 
+            resourceType : &quot;token&quot;, 
+            amount : 3, 
+            price : 50000 
+        } 
+     ] 
+ 
+     * </span><span class="s1">@type </span><span class="s0">{Array} 
+     */</span><span class="s2"> 
+    orders: [], 
+ 
+    </span><span class="s0">/** 
+     * This method is still under development. 
+     * Cancel a previously created order. 
+     * If a buy order provided, then the reserved credits amount will be refunded in full. 
+     * The 5% fee is not returned. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} orderId The order ID as provided in Game.market.myOrders. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    cancelOrder: </span><span class="s3">function</span><span class="s2">(orderId) { }, 
+ 
+    </span><span class="s0">/** 
+     * This method is still under development. 
+     * Create a buy order in your terminal. 
+     * You will be charged price*amount*0.05 credits when the order is placed, and the price*amount credits will be reserved. 
+     * The maximum buy orders count is 50 per player. 
+     * You can cancel an order to refund the reserved credits amount. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} resourceType Either one of the RESOURCE_* constants or GAMETIME_TOKEN. 
+     * </span><span class="s1">@param </span><span class="s0">{number} price The price for one resource unit in credits. Can be a decimal number. 
+     * </span><span class="s1">@param </span><span class="s0">{number} totalAmount The amount of resources to be bought in total. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [roomName] The room where your order will be created. You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive. This argument is not used when resourceType equals to GAMETIME_TOKEN. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_ENOUGH_RESOURCES|ERR_FULL|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    createBuyOrder: </span><span class="s3">function</span><span class="s2">(resourceType, price, totalAmount, roomName) { }, 
+ 
+    </span><span class="s0">/** 
+     * This method is still under development. 
+     * Create a sell order in your terminal. 
+     * You will be charged price*amount*0.05 credits when the order is placed. 
+     * The maximum sell orders count is 50 per player. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} resourceType Either one of the RESOURCE_* constants or GAMETIME_TOKEN. If your Terminal doesn't have the specified resource, the order will be temporary inactive. 
+     * </span><span class="s1">@param </span><span class="s0">{number} price The price for one resource unit in credits. Can be a decimal number. 
+     * </span><span class="s1">@param </span><span class="s0">{number} totalAmount The amount of resources to be sold in total. The Terminal doesn't have to contain all the given amount at the same time. If Infinity is provided, the order will remain active until the Terminal contains the specified resource. 
+     * </span><span class="s1">@param </span><span class="s0">{string} [roomName] The room where your order will be created. You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive. This argument is not used when resourceType equals to GAMETIME_TOKEN. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_ENOUGH_RESOURCES|ERR_FULL|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    createSellOrder: </span><span class="s3">function</span><span class="s2">(resourceType, price, totalAmount, roomName) { }, 
+ 
+    </span><span class="s0">/** 
+     * This method is still under development. 
+     * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order. 
+     * Your Terminal will be charged amount*linearDistanceBetweenRooms*0.1 energy units of transfer cost regardless of the order resource type. 
+     * You can use Game.map.getRoomLinearDistance method to estimate it. 
+     * 
+     * </span><span class="s1">@type </span><span class="s0">{function} 
+     * 
+     * </span><span class="s1">@param </span><span class="s0">{string} orderId The order ID as provided in Game.market.orders. 
+     * </span><span class="s1">@param </span><span class="s0">{string} targetRoomName The name of your room which has to contain an active Terminal with enough amount of energy. 
+     * </span><span class="s1">@param </span><span class="s0">{number} amount The amount of resources to transfer. 
+     * 
+     * </span><span class="s1">@return </span><span class="s0">{number|OK|ERR_NOT_ENOUGH_RESOURCES|ERR_INVALID_ARGS} 
+     */</span><span class="s2"> 
+    deal: </span><span class="s3">function</span><span class="s2">(orderId, targetRoomName, amount) { } 
+}; 
+</span></pre>
+</body>
+</html>
