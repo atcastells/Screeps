@@ -61,12 +61,8 @@ var factory = {
             }
             /*Num Spawns*/
             var numSpawns = 0;
-            for (var i in Memory.rooms[room.name].structures) {   //Spawn num in room
-                if (Memory.rooms[room.name].structures[i].structureType == 'spawn') {
-                    numSpawns++;
-                    var spawn = Game.getObjectById(Memory.rooms[room.name].structures[i].id);
-                }
-
+            for (var i in Game.spawns) {   //Spawn num in room
+                    var spawn = Game.spawns[i];
                 /*Fill toCreate list*/
 
                 if (Memory.rooms[room.name].factory.isLocked == false) {
