@@ -38,7 +38,17 @@ module.exports.loop = function () {
 
 
     /*Administrate Memory*/
-    administration.run();
+    for(var i in Game.rooms){
+        var room = Game.rooms[i];
+        var creep;
+        for(var c in Game.creeps){
+            if(Game.creeps[c].room.name == room.name){
+                creep = Game.creeps[c];
+            }
+        }
+        administration.run(creep);
+    }
+
 
     /*Normal Spawn*/ //maxOrganizers,maxBuilders,maxHaulers,maxUpgraders,maxHarvesters
     //factory.normalSpawn(1, 4, 4, 2, 5);

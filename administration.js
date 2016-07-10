@@ -45,16 +45,17 @@ var administration = {
                     }
                 }
             }
-                    /*Log sources*/
+            /*Log sources*/
             if (!Memory.rooms[room.name].sources) {
                 Memory.rooms[room.name].sources = [];
                 var resources = room.find(FIND_SOURCES);
                 for (var ids in resources) {
+                    console.log('test')
                     var source = {};
                     var klair = resources[ids].pos.findInRange(FIND_STRUCTURES, 6, {filter: {structureType: STRUCTURE_KEEPER_LAIR}}).length > 0;
                     source.id = resources[ids].id;
                     var resourceObject = Game.getObjectById(resources[ids].id);
-                    var resourceArea = Game.creeps[creep].room.name.lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
+                    var resourceArea = Game.creeps[creep].room.lookAtArea((resourceObject.pos.y - 1), (resourceObject.pos.x - 1), (resourceObject.pos.y + 1), (resourceObject.pos.x + 1), true);
                     var freeSlots = 9;
                     for (var i = 1; i < resourceArea.length; i++) {
                         if (resourceArea[i].terrain == 'wall') {
@@ -69,7 +70,7 @@ var administration = {
                 }
                 Memory.rooms[room.name].sources[0].status = 'Active';  //Activate first source
             }
-                //Activate sources
+            //Activate sources
             var activateNext = false;
             for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
                 if (Memory.rooms[room.name].sources[j].status == 'Active' && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
@@ -79,7 +80,7 @@ var administration = {
                     Memory.rooms[room.name].sources[j].status = 'Active';
                 }
             }
-                // List creeps by role
+            // List creeps by role
             for (var cid in Memory.creeps) {
                 if (!Memory.roles) {
                     Memory.roles = {};
@@ -108,28 +109,28 @@ var administration = {
                         }
                     }
                 }
-                    //Assign source to harvester
-                }
-                for (var cid in Memory.creeps) {
-                    if (Memory.creeps[cid].role == 'harvester') {
-                        if (!Memory.creeps[cid].workLog) {
-                            Memory.creeps[cid].workLog = {};
-                        }
-                        else {
-                            /*Looking for source*/
-                            for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == 'Active') {
-                                    Memory.rooms[room.name].sources[j].slotsRemaining--;
-                                    Memory.creeps[cid].workLog.energyCollected = 0;
-                                    Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
-                                    break;
-                                }
+                //Assign source to harvester
+            }
+            for (var cid in Memory.creeps) {
+                if (Memory.creeps[cid].role == 'harvester') {
+                    if (!Memory.creeps[cid].workLog) {
+                        Memory.creeps[cid].workLog = {};
+                    }
+                    else {
+                        /*Looking for source*/
+                        for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                            if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == 'Active') {
+                                Memory.rooms[room.name].sources[j].slotsRemaining--;
+                                Memory.creeps[cid].workLog.energyCollected = 0;
+                                Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
+                                break;
                             }
                         }
                     }
                 }
             }
         }
-    };
+    }
+};
 
 module.exports = administration;
