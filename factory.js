@@ -188,13 +188,13 @@ var factory = {
                     Memory.rooms[room.name].factory.queue = creepToProcess;
                     if(spawn.canCreateCreep(creepToProcess.body) == OK && spawn.spawning == null){
                         spawn.createCreep(creepToProcess.body,null,{role: role});
-                        factory.recount(role,factoryQueue,created);
+                        factory.recount(role);
                     }
                 }
             }
         }
     },
-    recount: function (role,queue,created) {
+    recount: function (role) {
         var roles = ['hauler','upgrader','harvester','builder','architect'];
         var hauler = 0;
         var upgrader = 1;
@@ -202,18 +202,17 @@ var factory = {
         var builder = 3;
         var architect = 4;
         var roleSelected = roles.indexOf(role);
-        var queueNum = queue[roleSelected];
-        var createdNum = created[roleSelected];
+        var queueNum = Memory.rooms[room.name].factory.factoryQueue[roleSelected];
+        var createdNum = Memory.rooms[room.name].factory.created[roleSelected];
         var diff;
-        for(var i in Memory.creeps()){
+        for(var i in Memory.creeps){
             if(Memory.creeps[i].role == roles[roleSelected]){
-                created += 1;
+                Memory.rooms[room.name].factory.created += 1;
             }
         }
-        diff = created - createdNum;
+        diff = Memory.rooms[room.name].factory.created - createdNum;
         queueNum += -diff;
-        queue[roleSelected]  = queueNum;
-        created[roleSelected] = created;
+        Memory.rooms[room.name].factory.factoryQueue[roleSelected]  = queueNum;
     },
     creeps: function (role) {
 
