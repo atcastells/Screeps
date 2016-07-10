@@ -207,10 +207,10 @@ var factory = {
         var diff;
         for(var i in Memory.creeps){
             if(Memory.creeps[i].role == roles[roleSelected]){
-                Memory.rooms[room.name].factory.created += 1;
+                Memory.rooms[room.name].factory.created[roleSelected] += 1;
             }
         }
-        diff = Memory.rooms[room.name].factory.created - createdNum;
+        diff = Memory.rooms[room.name].factory.created[roleSelected] - createdNum;
         queueNum += -diff;
         Memory.rooms[room.name].factory.factoryQueue[roleSelected]  = queueNum;
     },
