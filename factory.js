@@ -71,9 +71,6 @@ var factory = {
                     if(Memory.rooms[room.name].factory.spawns.indexOf(Game.spawns[j].id) == -1){
                         Memory.rooms[room.name].factory.spawns.push(Game.spawns[j].id,Game.spawns[j].energy)
                     }
-                    else {
-                        break;
-                    }
                 }
 
             }
