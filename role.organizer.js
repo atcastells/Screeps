@@ -3,7 +3,7 @@
              */
             var roleOrganizer = {
                 run: function (creep) {
-                    var stateEnum = Object.freeze({'Active':true,'Inactive':false});
+                    var stateEnum = Object.freeze({'Active': true, 'Inactive': false});
                     for (var id in Game.rooms) {
                         var room = Game.rooms[id];
                         if (!Memory.rooms[room.name]) {
@@ -12,11 +12,12 @@
                         else {
                             var buildings = room.find(FIND_MY_STRUCTURES);
                             var controllers = room.find(FIND_STRUCTURES, {
-                                filter: {structureType: STRUCTURE_CONTROLLER}});
+                                filter: {structureType: STRUCTURE_CONTROLLER}
+                            });
                             if (!Memory.rooms[room.name].structures) {
                                 Memory.rooms[room.name].structures = [];    //[room.name].structures
                             }
-                            else{
+                            else {
                                 for (var ids in buildings) {
                                     var structureType = buildings[ids].structureType;
                                     var id = buildings[ids].id;
@@ -38,11 +39,11 @@
 
                                 }
                             }
-                            if(!Memory.rooms[room.name].architectLog){
+                            if (!Memory.rooms[room.name].architectLog) {
                                 Memory.rooms[room.name].architectLog = [];  //[room.name].architectLog
                                 var resourceRoutes = [];
                                 var haulerQueues = [];
-                                Memory.rooms[room.name].architectLog.push(resourceRoutes,haulerQueues);
+                                Memory.rooms[room.name].architectLog.push(resourceRoutes, haulerQueues);
                                 var resources = room.find(FIND_SOURCES);
                                 /*Log sources*/
                                 if (!Memory.rooms[room.name].sources) {
@@ -64,69 +65,71 @@
                                         source.klair = klair;
                                         source.status = stateEnum.Inactive;
                                         Memory.rooms[room.name].sources.push(source);
-                                        for (var cid in Memory.creeps) {
-                                            if(!Memory.roles){
-                                                Memory.roles = {};
-                                                Memory.roles.builders = {};
-                                                Memory.roles.harvesters = {};
-                                                Memory.roles.haulers = {};
-                                                Memory.roles.organizers = {};
-                                                Memory.roles.upgraders = {};
-                                                for(var i in Memory.roles){
-                                                    var roleNames = i.substr(0,(i.length-1));
-                                                    Memory.roles[i].id = roleNames;
-                                                    Memory.roles[i].members = [];
+                                    }
+                                }
+                                Memory.rooms[room.name].sources[0].status = stateEnum.Active;  //Activate first source
+                            }
+                            // List creeps by role
+                            for (var cid in Memory.creeps) {
+                                if (!Memory.roles) {
+                                    Memory.roles = {};
+                                    Memory.roles.builders = {};
+                                    Memory.roles.harvesters = {};
+                                    Memory.roles.haulers = {};
+                                    Memory.roles.organizers = {};
+                                    Memory.roles.upgraders = {};
+                                    for (var i in Memory.roles) {
+                                        var roleNames = i.substr(0, (i.length - 1));
+                                        Memory.roles[i].id = roleNames;
+                                        Memory.roles[i].members = [];
+                                    }
+                                }
+                                else {
+                                    for (var i in Memory.roles) {
+                                        if (Memory.roles[i].id == Memory.creeps[cid].role) {
+                                            var creepExists = false;
+                                            for (var j = 0; j < Memory.roles[i].members.length; j++) {
+                                                if (Memory.roles[i].members[j] == cid) {
+                                                    creepExists = true;
                                                 }
                                             }
-                                            else {
-                                                for(var i in Memory.roles){
-                                                    if(Memory.roles[i].id == Memory.creeps[cid].role){
-                                                        var creepExists = false;
-                                                        for(var j = 0;j < Memory.roles[i].members.length; j++){
-                                                            if(Memory.roles[i].members[j] == cid){
-                                                                creepExists = true;
-                                                            }
-                                                        }
-                                                        if(creepExists == false){
-                                                            Memory.roles[i].members.push(cid)
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            //Activate sources
-                                            var activateNext = false;
-                                            for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                                if( Memory.rooms[room.name].sources[j].status == stateEnum.Active && Memory.rooms[room.name].sources[j].slotsRemaining == 0){
-                                                    activateNext = true;
-                                                }
-                                                if(Memory.rooms[room.name].sources[j].status == stateEnum.Inactive && activateNext == true){
-                                                    Memory.rooms[room.name].sources[j].status == stateEnum.Active
-                                                }
-                                            }
-
-                                            //Assign source to harvester
-                                            if (Memory.creeps[cid].role == 'harvester') {
-                                                if (!Memory.creeps[cid].workLog) {
-                                                    Memory.creeps[cid].workLog = {};
-                                                    /*Looking for source*/
-                                                    for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
-                                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == stateEnum.Active) {
-                                                            Memory.rooms[room.name].sources[j].slotsRemaining--;
-                                                            Memory.creeps[cid].workLog.energyCollected = 0;
-                                                            Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
-                                                            break;
-                                                        }
-                                                    }
-                                                }
+                                            if (creepExists == false) {
+                                                Memory.roles[i].members.push(cid)
                                             }
                                         }
                                     }
                                 }
                             }
-
-                        }
+                            //Activate sources
+                            var activateNext = false;
+                            for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                                if (Memory.rooms[room.name].sources[j].status == stateEnum.Active && Memory.rooms[room.name].sources[j].slotsRemaining == 0) {
+                                    activateNext = true;
+                                }
+                                if (Memory.rooms[room.name].sources[j].status == stateEnum.Inactive && activateNext == true) {
+                                    Memory.rooms[room.name].sources[j].status = stateEnum.Active;
+                                }
+                            }
+                            //Assign source to harvester
+                            if (Memory.creeps[cid].role == 'harvester') {
+                                if (!Memory.creeps[cid].workLog) {
+                                    Memory.creeps[cid].workLog = {};
+                                }
+                                else {
+                                    /*Looking for source*/
+                                    for (var j = 0; j < Memory.rooms[room.name].sources.length; j++) {
+                                        if (Memory.rooms[room.name].sources[j].slotsRemaining > 0 && Memory.rooms[room.name].sources[j].klair == false && Memory.rooms[room.name].sources[j].status == stateEnum.Active) {
+                                            Memory.rooms[room.name].sources[j].slotsRemaining--;
+                                            Memory.creeps[cid].workLog.energyCollected = 0;
+                                            Memory.creeps[cid].workLog.sources = Memory.rooms[room.name].sources[j].id;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+                }
                 };
 
             module.exports = roleOrganizer;
