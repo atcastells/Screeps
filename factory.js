@@ -37,6 +37,9 @@ var factory = {
                     }
                 }
 
+                //Calculate next construction
+
+
             }
 
         }
@@ -46,6 +49,17 @@ var factory = {
     creeps: function (role) {
 
         var roles = ['hauler','upgrader','harvester','builder','architect'];
+        var bodyCost =[
+            {part: MOVE,cost: 50},
+            {part: WORK,cost: 100},
+            {part:CARRY ,cost:50},
+            {part:ATTACK,cost:80 },
+            {part:RANGED_ATTACK,cost:150},
+            {part:HEAL,cost:250},
+            {part:CLAIM,cost:600},
+            {part:TOUGH,cost:10}
+        ];
+
         var bodyHauler = [CARRY,MOVE,CARRY];
         var bodyUpgrader = [CARRY,MOVE,WORK];
         var bodyHarvester = [WORK,MOVE];
@@ -74,6 +88,19 @@ var factory = {
             creep.body = bodyMisc;
             return creep
         }
+        var calculateCost = function (creep,bodyCost) {
+            var total = 0;
+            for(var i in creep){
+                for(var j in creep[i].body){
+                        if(creep[i].body[j]){
+                            var tempNum = bodyCost.indexOf(creep[i].body[j])
+                            total += bodyCost[tempNum].cost;
+                        }
+                }
+            }
+            return total;
+        }
+        creep.cost = calculateCost(creep,bodyCost);
         creep.taskType = 'creep';
         return creep;
     }
