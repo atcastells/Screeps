@@ -6,6 +6,7 @@ var roleBuilder = require('role.builder');
 var administration = require('administration');
 var factory = require('factory');
 var utils = require('utils');
+var taskManager = require('taskManager');
 
 module.exports.loop = function () {
 
@@ -57,7 +58,7 @@ module.exports.loop = function () {
         //factory.normalSpawn(1, 4, 4, 2, 5);
 
         /*Dynamic Spawn*/
-        factory.dynamicSpawn();
+        factory.dynamicSpawn(taskManager);
         /*Creep Iteration*/
         for(var name in Game.creeps){
             var creep = Game.creeps[name];
